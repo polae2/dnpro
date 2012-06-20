@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <TableLayout
+        android:id="@+id/default_gesture"
+        android:layout_width="320dip"
+        android:layout_height="fill_parent"
+        android:stretchColumns="1" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/siksaTitleTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="식사 추천메뉴"
+                android:textSize="25dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/siksaTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageView
+                android:id="@+id/siksaImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dip"
+                android:src="@drawable/img1" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/siksaNameEditText"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:enabled="false" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/siksaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="주변검색 " />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/custom_gesture"
+        android:layout_width="320dip"
+        android:layout_height="fill_parent"
+        android:stretchColumns="1" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/anjuTitleTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="안주 추천메뉴"
+                android:textSize="25dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/anjuTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageView
+                android:id="@+id/anjuImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dip"
+                android:src="@drawable/img1" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/anjuNameEditText"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:enabled="false" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/anjuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:text="주변검색" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
