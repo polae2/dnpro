@@ -1,5 +1,6 @@
 package com.ndn.menurandom;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -928,8 +929,27 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	            String menuName = cursor.getString(cursor.getColumnIndex("menuName"));
 	            String pictureName = cursor.getString(cursor.getColumnIndex("pictureName"));
 	            
-	            mi = new MyItem(id, menuName, R.drawable.ic_launcher);
-	            arItem.add(mi);    
+	            try {
+	            	Field field = R.drawable.class.getField("ic_tab_artists_grey");
+	            	//Field field = Class.forName("com.ndn.menurandom.MyItem").getField("ic_tab_artists_grey");
+					//mi = new MyItem(id, menuName, R.drawable.ic_launcher);
+		            mi = new MyItem(id, menuName, (Integer)field.get(null));
+					arItem.add(mi);    
+		            	
+					
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchFieldException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
             } while (cursor.moveToNext());
         }
         
@@ -977,46 +997,62 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	         public View getView(int position, View convertView, ViewGroup parent) {
 	                // TODO Auto-generated method stub
 	                final int pos = position;
+	                
+	                MyItemHolder holder  = null;
+	                
 	                //첫번째는 convertView가 null이여서 inflate를 통해서
 	                //마지막인자는 Whether the inflated hierarchy should be attached to the root parameter?
 	                //해석 못했음
 	                if(convertView == null){//layout은 R.layout.icontext parent는 뷰그룹인 리스트뷰를 뜻함
 	                       convertView = Inflater.inflate(layout, parent, false);
 	                      
+	                       holder = new MyItemHolder();
+	                     //이미지뷰를 세팅하고
+	   	                   holder.img = (ImageView)convertView.findViewById(R.id.img);
+	   	                   holder.id = (TextView)convertView.findViewById(R.id.id);
+	   	                   holder.txt = (TextView)convertView.findViewById(R.id.text);
+	   	                   holder.btn = (Button)convertView.findViewById(R.id.btn);
+		                   convertView.setTag(holder);
 	                }
 
-	                //이미지뷰를 세팅하고
-	                ImageView img = (ImageView)convertView.findViewById(R.id.img);
-	                img.setImageResource(arSrc.get(position).Icon);
-	               
-	                
-	                
-	              //텍스브튜도 세팅
-	                TextView id = (TextView)convertView.findViewById(R.id.id);
-	                id.setText(arSrc.get(position).id);
-	               
-	              //텍스브튜도 세팅
-	                TextView txt = (TextView)convertView.findViewById(R.id.text);
-	                txt.setText(arSrc.get(position).menuName);
-	               
-	               
-	                //버튼도 세팅함
-	                Button btn = (Button)convertView.findViewById(R.id.btn);
-	                btn.setOnClickListener(new OnClickListener() {
-	                      
-	                       public void onClick(View v) {
-	                             // TODO Auto-generated method stub
-	                             String str = arSrc.get(pos).menuName + "(id : " + arSrc.get(pos).id + ")";
-	                             int str2 = arSrc.get(pos).Icon;
-	                             
-	                             Toast toast = Toast.makeText(getApplicationContext(), str2, 2);
-	                             toast.show();
-	                             moveShowPage(str,"");//메뉴 소개 페이지로 이동!
-	                       }
-	                });
+	                holder = (MyItemHolder)convertView.getTag();
+	                if(holder != null)
+	                {
+		                holder.img.setImageResource(arSrc.get(position).Icon);
+		               
+		              //텍스브튜도 세팅
+		                holder.id.setText(arSrc.get(position).id);
+		               
+		              //텍스브튜도 세팅
+		                holder.txt.setText(arSrc.get(position).menuName);
+		               
+		               
+		                //버튼도 세팅함
+		                holder.btn.setOnClickListener(new OnClickListener() {
+		                      
+		                       public void onClick(View v) {
+		                             // TODO Auto-generated method stub
+		                             String str = arSrc.get(pos).menuName + "(id : " + arSrc.get(pos).id + ")";
+		                             int str2 = arSrc.get(pos).Icon;
+		                             
+		                             Toast toast = Toast.makeText(getApplicationContext(), str2, 2);
+		                             toast.show();
+		                             moveShowPage(str,"");//메뉴 소개 페이지로 이동!
+		                       }
+		                });
+	                }
 	               
 	                return convertView;//위 과정이 리스트뷰에 getCount만큼 반복됨
 	         }
+	}
+	
+	
+	class MyItemHolder
+	{
+		public ImageView img;
+		public TextView id;
+		public TextView txt;
+		public Button btn;
 	}
 	
 	/*
