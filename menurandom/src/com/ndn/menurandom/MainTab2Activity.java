@@ -22,8 +22,10 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +52,12 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.main);
+		
+		LinearLayout layout = (LinearLayout) findViewById(R.id.tab2);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.tab_2, null);
+		layout.addView(view);
 	}
 	
 //	public void onCreate(Bundle savedInstanceState) {
