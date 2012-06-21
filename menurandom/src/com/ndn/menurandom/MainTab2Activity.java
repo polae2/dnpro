@@ -22,18 +22,12 @@ import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ndn.menurandom.db.DBHandler;
-import com.ndn.menurandom.MenuSlideView;
-import com.ndn.menurandom.R;
 
 public class MainTab2Activity extends Activity implements OnClickListener {
 	private String currentState = STATE_FIRST;
@@ -43,60 +37,66 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	private long backPressedStartTime = 0;
 	private int doublePressedTimeThresHold = 300;
 	//LinearLayout layout = null;
-	TextView anjuTextView = null;
-	TextView siksaTextView = null;
-	View anjuButton;
-	View siksaButton;
-	EditText anjuNameEditText;
-	EditText siksaNameEditText;
-	HashMap<String, String> map = new HashMap<String, String>();
+	private TextView anjuTextView = null;
+	private TextView siksaTextView = null;
+	private View anjuButton;
+	private View siksaButton;
+	private TextView anjuNameEditText;
+	private TextView siksaNameEditText;
+	private HashMap<String, String> map = new HashMap<String, String>();
 	private MenuSlideView mSlideView;
 	
-	@Override
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		
-		//checkGps();//GPS 상태체크 //일단 보류 
-		
-		LinearLayout frameLayout = (LinearLayout) findViewById(R.id.tab2);
 
-		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		View view2 = inflater.inflate(R.layout.tab_2, null);
-		frameLayout.addView(view2);
-		
-		
-		anjuTextView = (TextView) findViewById(R.id.anjuTextView);
-		siksaTextView = (TextView) findViewById(R.id.siksaTextView);
-		
-		anjuNameEditText = (EditText) findViewById(R.id.anjuNameEditText);
-		siksaNameEditText = (EditText) findViewById(R.id.siksaNameEditText);
-		
-		anjuButton = findViewById(R.id.anjuButton);
-		siksaButton = findViewById(R.id.siksaButton);
-		
-		anjuButton.setOnClickListener(this);
-		siksaButton.setOnClickListener(this);
-		
-		//layout = (LinearLayout)findViewById(R.id.tLayout);
-		
-		loadKmaXmlRead();//기상청 xml 파싱
-		
-		recommendedAnjuMenu();//안주메뉴추천
-		recommendedSiksaMenu();//안주메뉴추천
-		
-		/*
-		ArrayList arItem = getArrayList("1", "K");;
-        //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-       
-        ListView MyList = (ListView)findViewById(R.id.list);
-        //어댑터와 데이터를 연결해서 원하는 리스트뷰에 뿌리게됨
-        MyList.setAdapter(MyAdapter);
-        */
-		mSlideView= (MenuSlideView)findViewById(R.id.menu_slide);
-        
+		setContentView(R.layout.main);
 	}
+	
+//	public void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.main);
+//		
+//		//checkGps();//GPS 상태체크 //일단 보류 
+//		
+//		LinearLayout frameLayout = (LinearLayout) findViewById(R.id.tab2);
+//
+//		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//		View view2 = inflater.inflate(R.layout.tab_2, null);
+//		frameLayout.addView(view2);
+//		
+//		
+//		anjuTextView = (TextView) findViewById(R.id.anjuTextView);
+//		siksaTextView = (TextView) findViewById(R.id.siksaTextView);
+//		
+//		anjuNameEditText = (TextView) findViewById(R.id.anjuNameEditText);
+//		siksaNameEditText = (TextView) findViewById(R.id.siksaNameEditText);
+//		
+//		anjuButton = findViewById(R.id.anjuButton);
+//		siksaButton = findViewById(R.id.siksaButton);
+//		
+//		anjuButton.setOnClickListener(this);
+//		siksaButton.setOnClickListener(this);
+//		
+//		//layout = (LinearLayout)findViewById(R.id.tLayout);
+//		
+//		loadKmaXmlRead();//기상청 xml 파싱
+//		
+//		recommendedAnjuMenu();//안주메뉴추천
+//		recommendedSiksaMenu();//안주메뉴추천
+//		
+//		/*
+//		ArrayList arItem = getArrayList("1", "K");;
+//        //어댑터를 만듬
+//        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
+//       
+//        ListView MyList = (ListView)findViewById(R.id.list);
+//        //어댑터와 데이터를 연결해서 원하는 리스트뷰에 뿌리게됨
+//        MyList.setAdapter(MyAdapter);
+//        */
+//		mSlideView= (MenuSlideView)findViewById(R.id.menu_slide);
+//	}
 
 	public void loadKmaXmlRead(){
 
