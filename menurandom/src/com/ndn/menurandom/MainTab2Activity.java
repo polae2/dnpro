@@ -35,10 +35,14 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	private String currentState = STATE_FIRST;
 	private static String STATE_FIRST = "0";
 	
+	/////////////////////////////////////////////////////
+	// Back button variable
 	private int backPressedCount = 0;
 	private long backPressedStartTime = 0;
 	private int doublePressedTimeThresHold = 300;
-	//LinearLayout layout = null;
+
+	/////////////////////////////////////////////////////
+	// Tab2 Variable
 	private TextView anjuTextView = null;
 	private TextView siksaTextView = null;
 	private View anjuButton;
