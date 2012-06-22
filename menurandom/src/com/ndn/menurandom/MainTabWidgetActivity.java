@@ -46,7 +46,7 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 				.setContent(intent);
 		tabHost.addTab(spec);
 
-		intent = new Intent().setClass(this, MainTab3Activity.class);
+//		intent = new Intent().setClass(this, MainTab3Activity.class);
 		spec = tabHost
 				.newTabSpec("Map")
 				.setIndicator("주변검색", res.getDrawable(R.drawable.ic_tab3_state))

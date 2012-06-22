@@ -43,12 +43,13 @@
 
         <TableRow android:gravity="center_horizontal" >
 
-            <EditText
+            <TextView
                 android:id="@+id/siksaNameEditText"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:enabled="false" />
+                android:enabled="false"
+                />
         </TableRow>
 
         <TableRow android:gravity="center_horizontal" >
@@ -101,7 +102,7 @@
 
         <TableRow android:gravity="center_horizontal" >
 
-            <EditText
+            <TextView
                 android:id="@+id/anjuNameEditText"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
