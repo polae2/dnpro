@@ -20,8 +20,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +45,28 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 
 	/////////////////////////////////////////////////////
 	// Tab2 Variable
+	
+	
+	
+	/////////////////////////////////////////////////////
+	// Location Variable
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private double latitude;
+    private double longitude;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private TextView anjuTextView = null;
 	private TextView siksaTextView = null;
 	private View anjuButton;
@@ -54,14 +78,63 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	
 	
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
+		initView();
+	}
+	
+	protected void onStart() {
+		super.onStart();
+		findMyLocation();
+	}
+	
+	protected void onResume() {
+		super.onResume();
+	}
+	
+	protected void onStop() {
+		stopSearching();
+		
+		super.onStop();
+	}
+	
+	private void initView() {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.tab2);
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.tab_2, null);
 		layout.addView(view);
+	}
+	
+	private void findMyLocation() {
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		locationListener = new LocationListener(){
+			public void onLocationChanged(Location loc) {
+				latitude = loc.getLatitude();
+				longitude = loc.getLongitude();
+				stopSearching();
+	        }
+	        public void onProviderDisabled(String provider) {
+	            Toast.makeText(getApplicationContext(), "현재 위치를 알 수 없습니다.", Toast.LENGTH_SHORT).show();
+	        }
+	        public void onProviderEnabled(String provider) {}
+	        public void onStatusChanged(String provider, int status, Bundle extras) {}			
+		};
+		
+		startSearhing();
+	}
+
+	private void startSearhing() {
+        int millis = 5000;
+        int distance = 5;
+                
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, millis, distance, locationListener);
+	}
+	
+	private void stopSearching() {
+		locationManager.removeUpdates(locationListener);
+		Log.e("NHK", "latitude: "+latitude+" longitude: "+longitude);
 	}
 	
 //	public void onCreate(Bundle savedInstanceState) {
@@ -370,40 +443,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		}// end if
 		return sb.toString();
 	}	
-	
-	/*
-	 * GPS 상태 체크하여 꺼져 있으면 켜는 페이지로 이동
-	 */
-	private void checkGps(){
-		String gpsSettings = android.provider.Settings.Secure.getString( getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-		if(gpsSettings.indexOf("gps", 0) < 0){
-			
-			/*
-			//GSP 켜는 환경 설정 페이지로 보내기
-			Intent intent = new Intent(	android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-			intent.addCategory(Intent.CATEGORY_DEFAULT);
-			startActivity(intent);
-			*/
-			
-			
-			LocationManager mgr = (LocationManager)getSystemService(LOCATION_SERVICE);
-			Location loc = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			
-			String locStr = null;
-			if(loc != null){
-				locStr = "위도 : " + loc.getLatitude() + "\n경도 : " + loc.getLongitude();
-			}else{
-				locStr =  "GPS 정보 없음.";
-			}
-				
-				
-			Toast.makeText(this, "마지막 GPS 위치 : " + locStr, Toast.LENGTH_SHORT).show();
-			
-		}else{
-			
-			Toast.makeText(this, "GPS 이미 켜져 있음.", Toast.LENGTH_SHORT).show();
-		}
-	}
 	
 //************************************************************************
 // 개발자 : 김두현
