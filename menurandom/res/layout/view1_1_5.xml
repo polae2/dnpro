@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" 
     android:id="@+id/view1_1_5"
-    android:background="@drawable/view" 
+    android:background="@drawable/page3" 
     >
     
 	<ListView

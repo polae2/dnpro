@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
        android:layout_height="60dip"
        android:padding="5dip"
-       android:background="@drawable/view" 
+       android:background="@drawable/page3" 
      >
 <ImageView
        android:id="@+id/img"
