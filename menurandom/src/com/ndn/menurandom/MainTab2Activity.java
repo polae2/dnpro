@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +16,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -45,7 +48,8 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 
 	/////////////////////////////////////////////////////
 	// Tab2 Variable
-	
+//	private static final String DAUM_API_KEY = "80eff4071090b19ab6ec0fc09de77f39f5cefee6";
+	private static final String KMA_URL = "http://www.kma.go.kr/wid/queryDFS.jsp?gridx=60&gridy=127";	// Jong-Ro 2 st.
 	
 	
 	/////////////////////////////////////////////////////
@@ -54,6 +58,20 @@ public class MainTab2Activity extends Activity implements OnClickListener {
     private LocationListener locationListener;
     private double latitude;
     private double longitude;
+    
+	/////////////////////////////////////////////////////
+	// Weather Variable
+    private static final int NONE = 1;
+    private static final int SUNNY = NONE + 1;
+    private static final int CLOUDY = NONE + 2;
+    private static final int RAINY = NONE + 3;
+    private static final int SNOWY = NONE + 4;
+    
+    private int weather = NONE;
+    private int temperature;
+    private int windSpeed;
+    private int humidity;
+    private int rainfallProbability;
 	
 	
 	
@@ -85,17 +103,18 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		initView();
 	}
 	
-	protected void onStart() {
+	protected void onStart() {Log.e("NHK", "onStart");
 		super.onStart();
-		findMyLocation();
+//		findMyLocation();
+		getWeatherInformation();
 	}
 	
-	protected void onResume() {
+	protected void onResume() {Log.e("NHK", "onResume");
 		super.onResume();
 	}
 	
-	protected void onStop() {
-		stopSearching();
+	protected void onStop() {Log.e("NHK", "onStop");
+//		stopSearching();
 		
 		super.onStop();
 	}
@@ -108,9 +127,15 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void findMyLocation() {
+//		searhingLatLng();
+	}
+
+	/*
+	private void searhingLatLng() {Log.e("NHK", "searhingLatLng");
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		locationListener = new LocationListener(){
 			public void onLocationChanged(Location loc) {
+				Toast.makeText(getApplicationContext(), "Latitude: " + String.valueOf(loc.getLatitude()), Toast.LENGTH_SHORT).show();
 				latitude = loc.getLatitude();
 				longitude = loc.getLongitude();
 				stopSearching();
@@ -122,20 +147,82 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	        public void onStatusChanged(String provider, int status, Bundle extras) {}			
 		};
 		
-		startSearhing();
-	}
-
-	private void startSearhing() {
-        int millis = 5000;
+		int millis = 5000;
         int distance = 5;
                 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, millis, distance, locationListener);
 	}
+	*/
 	
-	private void stopSearching() {
+	private void getWeatherInformation() {
+		boolean weather = false;
+		String weatherData=null;
+
+		try {
+			URL url = new URL(KMA_URL);
+			XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+			XmlPullParser parser = parserCreator.newPullParser();
+			parser.setInput(url.openStream(), null);
+
+			int parserEvent = parser.getEventType();
+
+			// section for improving speed
+			while (parserEvent != XmlPullParser.END_DOCUMENT) {
+				if ( parserEvent == XmlPullParser.START_TAG ) {
+					if ( parser.getName().equals( "wfKor" ) )
+						break;
+				}
+				parserEvent = parser.next();
+			}
+	
+////////////////////////////////////////////////////
+//			Weather Code
+//			
+//			① Clear
+//			② PartlyCloudy
+//			③ MostlyCloudy
+//			④ Cloudy
+//			⑤ Rain
+//			⑥ Snow/Rain
+//			⑦ Snow
+		    
+			// get weather data
+			while (parserEvent != XmlPullParser.END_DOCUMENT) {
+				switch (parserEvent) {
+				case XmlPullParser.START_TAG:
+					if (parser.getName().equals("wfEn")) { weather = true; }
+					break;
+
+				case XmlPullParser.TEXT:
+					if (weather) 
+						weatherData = parser.getText();
+					break;
+				}
+				parserEvent = parser.next();
+			}
+		} catch (Exception e) {
+			Log.e("NHK", "weather ERROR");
+			return;
+		}
+		
+		if ( weatherData.equals("Clear") || weatherData.equals("PartlyCloudy") )
+			this.weather = SUNNY;
+		else if ( weatherData.equals("MostlyCloudy") || weatherData.equals("Cloudy") )
+			this.weather = CLOUDY;
+		else if ( weatherData.equals("Rain") || weatherData.equals("Snow/Rain") )
+			this.weather = RAINY;
+		else if ( weatherData.equals("Snow") )
+			this.weather = SNOWY;
+		else
+			this.weather = NONE;
+	}
+
+	/*
+	private void stopSearching() {Log.e("NHK", "stopSearching");
 		locationManager.removeUpdates(locationListener);
 		Log.e("NHK", "latitude: "+latitude+" longitude: "+longitude);
 	}
+	*/
 	
 //	public void onCreate(Bundle savedInstanceState) {
 //		super.onCreate(savedInstanceState);
