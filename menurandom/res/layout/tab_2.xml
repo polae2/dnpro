@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id = "@+id/upperlayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -14,6 +15,14 @@
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:paddingTop = "10dp"/>
+    
+    <ImageView
+        android:id = "@+id/weatherImage"
+        android:layout_alignParentRight="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"/>
         
     </RelativeLayout>
 </LinearLayout>

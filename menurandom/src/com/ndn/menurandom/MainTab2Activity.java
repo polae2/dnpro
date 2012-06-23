@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,11 +28,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,11 +73,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
     private static final int SNOWY = NONE + 4;
     
     private int weather = NONE;
-    private int temperature;
-    private int windSpeed;
-    private int humidity;
-    private int rainfallProbability;
-	
 	
 	
 	
@@ -107,6 +107,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		super.onStart();
 //		findMyLocation();
 		getWeatherInformation();
+		drawWeather();
 	}
 	
 	protected void onResume() {Log.e("NHK", "onResume");
@@ -124,6 +125,39 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.tab_2, null);
 		layout.addView(view);
+	}
+	
+	private void drawWeather() {
+		ImageView imageView = (ImageView) findViewById(R.id.weatherImage);
+		
+		switch (weather) {
+		case SUNNY:
+	        Calendar calendar = Calendar.getInstance();
+	        Date date = calendar.getTime();
+	        // if it's night
+	        if( 20 < date.getHours() || 6 > date.getHours() )
+	        	imageView.setImageResource(R.drawable.weather_moon);
+	        else
+	        	imageView.setImageResource(R.drawable.weather_sun);
+			break;
+		
+		case CLOUDY:
+			imageView.setImageResource(R.drawable.weather_cloud);
+			break;
+		
+		case RAINY:
+			imageView.setImageResource(R.drawable.weather_rain);
+			break;
+		
+		case SNOWY:
+			imageView.setImageResource(R.drawable.weather_snow);
+			break;
+		
+		case NONE:
+		default:
+			imageView.setImageResource(R.drawable.weather_none);
+			break;
+		}
 	}
 	
 	private void findMyLocation() {
@@ -179,23 +213,26 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 //			Weather Code
 //			
 //			① Clear
-//			② PartlyCloudy
-//			③ MostlyCloudy
+//			② Partly Cloudy
+//			③ Mostly Cloudy
 //			④ Cloudy
 //			⑤ Rain
 //			⑥ Snow/Rain
 //			⑦ Snow
 		    
 			// get weather data
-			while (parserEvent != XmlPullParser.END_DOCUMENT) {
+			boolean isEnd = false;
+			while (parserEvent != XmlPullParser.END_DOCUMENT && isEnd == false) {
 				switch (parserEvent) {
 				case XmlPullParser.START_TAG:
 					if (parser.getName().equals("wfEn")) { weather = true; }
 					break;
 
 				case XmlPullParser.TEXT:
-					if (weather) 
+					if (weather) {
 						weatherData = parser.getText();
+						isEnd = true;
+					}
 					break;
 				}
 				parserEvent = parser.next();
@@ -205,9 +242,9 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			return;
 		}
 		
-		if ( weatherData.equals("Clear") || weatherData.equals("PartlyCloudy") )
+		if ( weatherData.equals("Clear") || weatherData.equals("Partly Cloudy") )
 			this.weather = SUNNY;
-		else if ( weatherData.equals("MostlyCloudy") || weatherData.equals("Cloudy") )
+		else if ( weatherData.equals("Mostly Cloudy") || weatherData.equals("Cloudy") )
 			this.weather = CLOUDY;
 		else if ( weatherData.equals("Rain") || weatherData.equals("Snow/Rain") )
 			this.weather = RAINY;
