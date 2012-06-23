@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Random;
 import com.ndn.menurandom.db.DBHandler;
 import com.nhn.android.maps.opt.T;
+import com.nhn.android.maps.opt.l;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -27,6 +29,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -224,6 +227,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
         ImageButton btn1_2 = (ImageButton)returnVal.findViewById(R.id.ImgBtn1_2);
         btn1_2.setTag(SECOND_BUTTON);
         btn1_2.setOnClickListener(this);
+        
 
         return returnVal;
     }
@@ -240,6 +244,10 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
     	LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		returnVal = inflater.inflate(R.layout.view1_1, null);        
         
+		//Resources resources = this.getResources();
+		//returnVal.setBackgroundDrawable(resources.getDrawable(R.drawable.page2));
+		//returnVal.setBackgroundResource(R.drawable.page2);
+		
 		ImageButton btn1_1_1 = (ImageButton) returnVal.findViewById(R.id.imgBtn1_1_1);
 		btn1_1_1.setTag(KOREA);
         btn1_1_1.setOnClickListener(this);
@@ -366,7 +374,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
     	
     	LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		returnVal = inflater.inflate(R.layout.view_pic, null);        
-
+		
         return returnVal;
     }
 //*********************** 끝 *************************
@@ -411,7 +419,15 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
     	}*/
     }
 //******************************* 끝 *************************************
-    
+    private void setViewAsDrawble(View view){
+    	FrameLayout frameLayout = (FrameLayout)findViewById(R.id.tab1);
+    	for(int i =0; i < frameLayout.getChildCount(); i++){
+    		View v = frameLayout.getChildAt(i);
+    		if(v == view){
+    			v.setBackgroundColor(R.drawable.main_view);
+    		}
+    	}
+    }
     
     
     
@@ -419,7 +435,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발자 : 김두현
 // 개발버전 : VER 1.000
 // 개발일시 : 12. 06. 14
-// 개발내용 : 백버튼 클릭시 처리 함수
+// 개발내용 : 백버튼 클 릭시 처리 함수
 //************************************************************************
 	public void onBackPressed(){
 		if(currentState == STATE_FIRST){

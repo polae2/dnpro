@@ -11,8 +11,7 @@
 	    android:layout_height="wrap_content"
 	    android:gravity="center_horizontal"
 		android:padding="20dp"
-    
-	    >
+	>
 	  	<ImageButton
             android:id="@+id/imgBtn1_1_2"
             android:layout_width="100dp"
