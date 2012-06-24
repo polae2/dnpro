@@ -2,23 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@drawable/main_view"
+    android:orientation="vertical" 
+	android:background="@drawable/page1"
 	 >
- 
+
+<FrameLayout
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="120dp"
+    android:layout_marginTop="80dp"
+    android:gravity="center_horizontal"
+    
+   >
+
+     <ImageButton
+         android:id="@+id/ImgBtn1_2"
+         android:layout_width="150dp"
+         android:layout_height="150dp"
+         android:background="#40000000"
+         android:src="@drawable/sul" />
+
+ </FrameLayout>
+
+ <FrameLayout
+     android:layout_width="150dp"
+     android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+     android:gravity="center_horizontal" >
+
   <ImageButton
       android:id="@+id/ImgBtn1_1"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_weight="0.30"
-      android:layout_margin="20dp"
-      android:src="@drawable/ic_launcher" />
+      android:layout_width="150dp"
+      android:layout_height="150dp"
+      android:background="#40000000"
+      android:src="@drawable/sik" />
 
-  <ImageButton
-      android:id="@+id/ImgBtn1_2"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_weight="0.30"
-      android:layout_margin="20dp"
-      android:src="@drawable/ic_launcher" />
-
+</FrameLayout>
 </LinearLayout>

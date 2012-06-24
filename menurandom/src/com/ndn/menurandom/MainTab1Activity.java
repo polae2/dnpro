@@ -419,15 +419,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
     	}*/
     }
 //******************************* 끝 *************************************
-    private void setViewAsDrawble(View view){
-    	FrameLayout frameLayout = (FrameLayout)findViewById(R.id.tab1);
-    	for(int i =0; i < frameLayout.getChildCount(); i++){
-    		View v = frameLayout.getChildAt(i);
-    		if(v == view){
-    			v.setBackgroundColor(R.drawable.main_view);
-    		}
-    	}
-    }
+
     
     
     
