@@ -169,7 +169,7 @@ public class DBHandler {
     	
     	StringBuffer sb = new StringBuffer();
     	
-		sb.append(" select id,																											\n");																
+		sb.append(" select id,															\n");																
 		sb.append("        code,                                                    \n");
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
