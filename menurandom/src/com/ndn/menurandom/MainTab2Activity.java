@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ndn.menurandom.data.MenuData;
 import com.ndn.menurandom.db.DBHandler;
 
 public class MainTab2Activity extends Activity implements OnClickListener {
@@ -59,10 +60,10 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	/////////////////////////////////////////////////////
 	// Location Variable
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    private double latitude;
-    private double longitude;
+//    private LocationManager locationManager;
+//    private LocationListener locationListener;
+//    private double latitude;
+//    private double longitude;
     
 	/////////////////////////////////////////////////////
 	// Weather Variable
@@ -108,6 +109,8 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 //		findMyLocation();
 		getWeatherInformation();
 		drawWeather();
+		MenuData menuData = getRecommandMenu();
+		drawMenu(menuData);
 	}
 	
 	protected void onResume() {Log.e("NHK", "onResume");
@@ -137,6 +140,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	        // if it's night
 	        if( 20 < date.getHours() || 6 > date.getHours() )
 	        	imageView.setImageResource(R.drawable.weather_moon);
+	        // if it's daytime
 	        else
 	        	imageView.setImageResource(R.drawable.weather_sun);
 			break;
@@ -160,12 +164,20 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		}
 	}
 	
-	private void findMyLocation() {
-//		searhingLatLng();
+	private void drawMenu(MenuData menuData) {
+		ImageView image = (ImageView) findViewById(R.id.menu_image);
+		TextView text = (TextView) findViewById(R.id.menu_name);
+		
+		image.setImageResource(R.drawable.img1);
+		text.setText(menuData.name);
 	}
+	
+//	private void findMyLocation() {
+//		searhingLatLng();
+//	}
 
 	/*
-	private void searhingLatLng() {Log.e("NHK", "searhingLatLng");
+	private void searhingLatLng() {
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		locationListener = new LocationListener(){
 			public void onLocationChanged(Location loc) {
@@ -175,7 +187,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 				stopSearching();
 	        }
 	        public void onProviderDisabled(String provider) {
-	            Toast.makeText(getApplicationContext(), "현재 위치를 알 수 없습니다.", Toast.LENGTH_SHORT).show();
+	            Toast.makeText(getApplicationContext(), "Can't not find current location", Toast.LENGTH_SHORT).show();
 	        }
 	        public void onProviderEnabled(String provider) {}
 	        public void onStatusChanged(String provider, int status, Bundle extras) {}			
@@ -252,6 +264,10 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			this.weather = SNOWY;
 		else
 			this.weather = NONE;
+	}
+	
+	private MenuData getRecommandMenu() {
+		return new RecommandEngine(weather).getRecommandMenuData();
 	}
 
 	/*

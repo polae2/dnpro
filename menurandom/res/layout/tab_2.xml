@@ -3,26 +3,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-
+	
     <RelativeLayout
         android:id = "@+id/upperlayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_alignParentTop="true"
-        android:src="@drawable/recommend"
-        android:layout_width="140dp"
-        android:layout_height="80dp"
-        android:paddingTop = "10dp"/>
-    
-    <ImageView
-        android:id = "@+id/weatherImage"
-        android:layout_alignParentRight="true"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"/>
-        
+		
+	    <ImageView
+	        android:layout_alignParentTop="true"
+	        android:src="@drawable/recommend"
+	        android:layout_width="140dp"
+	        android:layout_height="80dp"
+	        android:paddingTop = "10dp"/>
+	    	
+	    <ImageView
+	        android:id = "@+id/weatherImage"
+	        android:layout_alignParentRight="true"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:paddingTop="10dp"
+	        android:paddingRight="10dp"/>
     </RelativeLayout>
+    
+    
+    
+    <FrameLayout
+        android:layout_width = "fill_parent"
+        android:layout_height = "wrap_content">
+    
+	    <RelativeLayout
+	        android:layout_width = "fill_parent"
+	        android:layout_height = "fill_parent">
+	        
+	        <ImageView
+	            android:id = "@+id/menu_image"
+	            android:layout_centerInParent = "true"
+	            android:layout_width = "450dp"
+	            android:layout_height = "300dp"/>
+
+		    <TextView
+		        android:id = "@+id/menu_name"
+		        android:layout_alignParentBottom = "true"
+		        android:layout_width = "wrap_content"
+		        android:layout_height = "20dp"
+		        android:textSize = "20sp"
+		        android:paddingRight = "10dp"/>
+	    </RelativeLayout>
+    </FrameLayout>
+        
 </LinearLayout>
