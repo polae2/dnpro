@@ -56,34 +56,23 @@ public class DBHandler {
         helper.close();
     }
 
-    public long insert(String car_name) {
-    	/*
-        ContentValues values = new ContentValues();
-        values.put("code", "1");             
-        return db.insert("menu", null, values);
-        */
-    	
-    	
-    	return 1;
-    } 
-    
     /* 설명 : 넘어온 파라메터 조건에 맞게 검색하여 그중 랜덤 1건의 데이터를 리턴해 준다.
      * 호출방법 : randomSelect(code, detailCode, snow, rain, hot, cold); 
      */
     public Cursor randomRecommended(HashMap itemMap) throws SQLException {
     	
-    	String code =  (String)itemMap.get("code");
-    	String detailCode =  (String)itemMap.get("detailCode");
-    	String snow =  (String)itemMap.get("snow");
-    	String rain =  (String)itemMap.get("rain");
-    	String hot =  (String)itemMap.get("hot");
-    	String cold =  (String)itemMap.get("cold");
+    	String code = (String)itemMap.get("code");
+    	String detailCode = (String)itemMap.get("detailCode");
+    	String snow = (String)itemMap.get("snow");
+    	String rain = (String)itemMap.get("rain");
+    	String hot = (String)itemMap.get("hot");
+    	String cold = (String)itemMap.get("cold");
     	
     	Cursor cursor = null;
     	
     	StringBuffer sb = new StringBuffer();
     	
-		sb.append(" select id,																											\n");																
+		sb.append(" select id,		                    							\n");																
 		sb.append("        code,                                                    \n");
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
@@ -96,7 +85,7 @@ public class DBHandler {
 		sb.append(" from                                                            \n");
 		sb.append("     (                                                           \n");
 		sb.append("      select                                                     \n");
-		sb.append("     	    a.id,                                                 \n");
+		sb.append("     	    a.id,                                               \n");
 		sb.append("             a.code,                                             \n");
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
@@ -105,13 +94,13 @@ public class DBHandler {
 		sb.append("             a.rain,                                             \n");
 		sb.append("             a.hot,                                              \n");
 		sb.append("             a.cold,                                             \n");
-		sb.append(" 	    (select count(b.id)	                                      \n");
+		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
 		sb.append("               where a.id <= b.id                                \n");
 		if(code != null) 			
-			sb.append("                 and b.code in ('0','" + code + "')           \n"); //0:식사/술안주, 1:식사, :2:술안주
+			sb.append("                 and b.code in ('0','" + code + "')          \n"); //0:식사/술안주, 1:식사, :2:술안주
 		if(detailCode != null) 	
-			sb.append("                 and b.detailCode = '" + detailCode + "'    \n");
+			sb.append("                 and b.detailCode = '" + detailCode + "'     \n");
 		
 		sb.append("                 and ( 1 = 0    \n"); // OR 조건을 넣기 위해서 넣어줌..
 		
@@ -193,7 +182,7 @@ public class DBHandler {
 		sb.append(" from                                                            \n");
 		sb.append("     (                                                           \n");
 		sb.append("      select                                                     \n");
-		sb.append("     	    a.id,                                                 \n");
+		sb.append("     	    a.id,                                               \n");
 		sb.append("             a.code,                                             \n");
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
@@ -202,7 +191,7 @@ public class DBHandler {
 		sb.append("             a.rain,                                             \n");
 		sb.append("             a.hot,                                              \n");
 		sb.append("             a.cold,                                             \n");
-		sb.append(" 	    (select count(b.id)	                                      \n");
+		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
 		sb.append("               where a.id <= b.id                                \n");
 		if(code != null) 			
