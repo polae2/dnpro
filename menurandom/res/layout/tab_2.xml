@@ -27,28 +27,56 @@
     
     
     
-    <FrameLayout
+    <RelativeLayout
         android:layout_width = "fill_parent"
         android:layout_height = "wrap_content">
-    
-	    <RelativeLayout
-	        android:layout_width = "fill_parent"
-	        android:layout_height = "fill_parent">
-	        
-	        <ImageView
-	            android:id = "@+id/menu_image"
-	            android:layout_centerInParent = "true"
-	            android:layout_width = "450dp"
-	            android:layout_height = "300dp"/>
-
-		    <TextView
-		        android:id = "@+id/menu_name"
-		        android:layout_alignParentBottom = "true"
-		        android:layout_width = "wrap_content"
-		        android:layout_height = "20dp"
-		        android:textSize = "20sp"
-		        android:paddingRight = "10dp"/>
-	    </RelativeLayout>
-    </FrameLayout>
         
+        <ImageView
+            android:id = "@+id/menu_image"
+            android:layout_centerInParent = "true"
+            android:layout_width = "300dp"
+            android:layout_height = "200dp"
+            android:paddingTop = "20dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout 
+        android:layout_width = "fill_parent"
+        android:layout_height = "wrap_content">
+
+   	    <TextView
+	        android:id = "@+id/menu_name"
+	        android:layout_width = "wrap_content"
+	        android:layout_height = "wrap_content"
+	        android:textSize = "20sp"
+	        android:paddingRight = "10dp"/>
+        
+        <TextView
+            android:id = "@+id/menu_explanation"
+            android:layout_width = "360dp"
+            android:layout_height = "wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize = "20sp"/>
+        
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_width = "fill_parent"
+        android:layout_height = "wrap_content"
+        android:gravity="center">
+        
+		<Button 
+		    android:id = "@+id/btn_othermenu"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+		    android:text="Other Menu"/>
+		
+		<Button 
+		    android:id = "@+id/btn_search"
+		    android:layout_width = "wrap_content"
+		    android:layout_height = "wrap_content"
+		    android:text="Search"/>
+        
+    </LinearLayout>
+    
 </LinearLayout>
