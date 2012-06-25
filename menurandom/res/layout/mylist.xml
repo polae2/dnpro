@@ -18,11 +18,12 @@
        android:id="@+id/text"
        android:layout_width="wrap_content"
        android:layout_height="60dp"
-       android:textColor="#00ff00"
-       android:textSize="26sp"
+       android:textColor="#000000"
+       android:textSize="24sp"
+       android:layout_marginLeft="70dp"
        android:layout_centerVertical="true"
        android:layout_toRightOf="@id/img"
-		android:visibility="gone" />"
+	/>"
 		
 <TextView
        android:id="@+id/id"
