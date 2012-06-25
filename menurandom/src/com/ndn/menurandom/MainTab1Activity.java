@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import com.ndn.menurandom.data.MenuInfo;
 import com.ndn.menurandom.db.DBHandler;
 import com.nhn.android.maps.opt.T;
 import com.nhn.android.maps.opt.l;
@@ -543,12 +545,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			//Array1_2.add(0, "술마셔 베이베");
 			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Array1_2);
 	        
-	        ArrayList arItem = getArrayList("2", "O");;
+			ArrayList<MenuInfo> menuInfoList = getArrayList("2", "O"); // 한식 데이터 가져오기
 	        //어댑터를 만듬
-	        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-	       
-			final ListView listview = (ListView) view1_2.findViewById(R.id.list1_2);
-			listview.setAdapter(MyAdapter);
+			MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
+	        
+			ListView listview = (ListView) view1_2.findViewById(R.id.list1_2);
+			listview.setAdapter(menuListAdapter);
 //			
 //			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -634,13 +636,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 //************************************************************************
 	public void Array_Korea(){
 		
-		ArrayList arItem = getArrayList("1", "K"); // 한식 데이터 가져오기
+		ArrayList<MenuInfo> menuInfoList = getArrayList("1", "K"); // 한식 데이터 가져오기
         //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-        
+		MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
         
 		ListView listview = (ListView) view1_1_1.findViewById(R.id.list1_1_1);
-		listview.setAdapter(MyAdapter);
+		listview.setAdapter(menuListAdapter);
 		currentThird_View=T_View1;
 //		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -653,12 +654,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	}
 	public void Array_China(){
 		
-		ArrayList arItem = getArrayList("1", "C"); // 중식 데이터 가져오기
+		ArrayList<MenuInfo> menuInfoList = getArrayList("1", "C"); // 한식 데이터 가져오기
         //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
+		MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
         
 		ListView listview = (ListView) view1_1_2.findViewById(R.id.list1_1_2);
-		listview.setAdapter(MyAdapter);
+		listview.setAdapter(menuListAdapter);
 //		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
 //			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -670,12 +671,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	}
 	public void Array_Japan(){
 
-		ArrayList arItem = getArrayList("1", "J"); // 일식 데이터 가져오기
+		ArrayList<MenuInfo> menuInfoList = getArrayList("1", "J"); // 한식 데이터 가져오기
         //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
+		MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
         
 		ListView listview = (ListView) view1_1_3.findViewById(R.id.list1_1_3);
-		listview.setAdapter(MyAdapter);
+		listview.setAdapter(menuListAdapter);
 //		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
 //			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -687,12 +688,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	}
 	public void Array_America(){
 
-		ArrayList arItem = getArrayList("1", "A"); // 양식 데이터 가져오기
+		ArrayList<MenuInfo> menuInfoList = getArrayList("1", "A"); // 한식 데이터 가져오기
         //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-		
+		MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
+        
 		ListView listview = (ListView) view1_1_4.findViewById(R.id.list1_1_4);
-		listview.setAdapter(MyAdapter);
+		listview.setAdapter(menuListAdapter);
 		
 //		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -715,13 +716,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Array1_1_5);
 		*/
 
-		ArrayList arItem = getArrayList("1", "S"); // 분식 데이터 가져오기
+		ArrayList<MenuInfo> menuInfoList = getArrayList("1", "S"); // 한식 데이터 가져오기
         //어댑터를 만듬
-        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-		
-		
+		MenuListAdapter menuListAdapter = new MenuListAdapter(this, menuInfoList);
+        
 		ListView listview = (ListView) view1_1_5.findViewById(R.id.list1_1_5);
-		listview.setAdapter(MyAdapter);
+		listview.setAdapter(menuListAdapter);
 /*		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -921,48 +921,38 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	
 	
 	
-	private ArrayList getArrayList(String code, String detailCode){
+	private ArrayList<MenuInfo> getArrayList(String code, String detailCode){
+		
+		
 		DBHandler dbhandler = DBHandler.open(this);
 		Cursor cursor = dbhandler.getArrayList(code, detailCode);
         startManagingCursor(cursor);
         
 		
 	   //데이터를 만듬(ac220v)
-	   ArrayList<MyItem> arItem = new ArrayList<MyItem>();
-       MyItem mi;
+	   ArrayList<MenuInfo> menuInfoList = new ArrayList<MenuInfo>();
+       MenuInfo mi;
         
         if (cursor.moveToFirst()) {
             do {
-	            String id = cursor.getString(cursor.getColumnIndex("id"));
-	            String menuName = cursor.getString(cursor.getColumnIndex("menuName"));
-	            String pictureName = cursor.getString(cursor.getColumnIndex("pictureName"));
+            	
+            	mi = new MenuInfo();
+            	mi.setId(cursor.getString(cursor.getColumnIndex("id")));
+            	mi.setName(cursor.getString(cursor.getColumnIndex("menuName")));
+	            mi.setPictureName(cursor.getString(cursor.getColumnIndex("pictureName")));
+	            menuInfoList.add(mi);
 	            
-	            try {
-	            	Field field = R.drawable.class.getField("ic_tab_artists_grey");
+//	            	Field field = R.drawable.class.getField("ic_tab_artists_grey");
 	            	//Field field = Class.forName("com.ndn.menurandom.MyItem").getField("ic_tab_artists_grey");
 					//mi = new MyItem(id, menuName, R.drawable.ic_launcher);
-		            mi = new MyItem(id, menuName, (Integer)field.get(null));
-					arItem.add(mi);    
-		            	
-					
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchFieldException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+//		            mi = new MyItem(id, menuName, (Integer)field.get(null));
+//					arItem.add(mi);    
+	            
             } while (cursor.moveToNext());
         }
         
 		dbhandler.close();
-		return arItem;
+		return menuInfoList;
 	}
 	
 	
@@ -1019,7 +1009,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	   	                   holder.img = (ImageView)convertView.findViewById(R.id.img);
 	   	                   holder.id = (TextView)convertView.findViewById(R.id.id);
 	   	                   holder.txt = (TextView)convertView.findViewById(R.id.text);
-	   	                   holder.btn = (Button)convertView.findViewById(R.id.btn);
+	   	                   holder.btn = (ImageButton)convertView.findViewById(R.id.btn);
 		                   convertView.setTag(holder);
 	                }
 
@@ -1060,7 +1050,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		public ImageView img;
 		public TextView id;
 		public TextView txt;
-		public Button btn;
+		public ImageButton btn;
 	}
 	
 	/*
@@ -1079,175 +1069,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		setViewAsVisible(view_pic);
 	}
 	
-	private String[] mStrings_k={
-	        "http://211.190.5.182/jpgdown/k001.jpg",
-	        "http://211.190.5.182/jpgdown/k002.jpg",
-	        "http://211.190.5.182/jpgdown/k003.jpg",
-	        "http://211.190.5.182/jpgdown/k004.jpg",
-	        "http://211.190.5.182/jpgdown/k005.jpg",
-	        "http://211.190.5.182/jpgdown/k006.jpg",
-	        "http://211.190.5.182/jpgdown/k007.jpg",
-	        "http://211.190.5.182/jpgdown/k008.jpg",
-	        "http://211.190.5.182/jpgdown/k009.jpg",
-	        "http://211.190.5.182/jpgdown/k010.jpg",
-	        "http://211.190.5.182/jpgdown/k011.jpg",
-	        "http://211.190.5.182/jpgdown/k012.jpg",
-	        "http://211.190.5.182/jpgdown/k013.jpg",
-	        "http://211.190.5.182/jpgdown/k014.jpg",
-	        "http://211.190.5.182/jpgdown/k015.jpg",
-	        "http://211.190.5.182/jpgdown/k016.jpg",
-	        "http://211.190.5.182/jpgdown/k017.jpg",
-	        "http://211.190.5.182/jpgdown/k018.jpg",
-	        "http://211.190.5.182/jpgdown/k019.jpg",
-	        "http://211.190.5.182/jpgdown/k020.jpg",
-	        "http://211.190.5.182/jpgdown/k021.jpg",
-	        "http://211.190.5.182/jpgdown/k022.jpg",
-	        "http://211.190.5.182/jpgdown/k023.jpg",
-	        "http://211.190.5.182/jpgdown/k024.jpg",
-	        "http://211.190.5.182/jpgdown/k025.jpg",
-	        "http://211.190.5.182/jpgdown/k026.jpg",
-	        "http://211.190.5.182/jpgdown/k027.jpg",
-	        "http://211.190.5.182/jpgdown/k028.jpg",
-	        "http://211.190.5.182/jpgdown/k029.jpg",
-	        "http://211.190.5.182/jpgdown/k030.jpg",
-	        "http://211.190.5.182/jpgdown/k031.jpg",
-	        "http://211.190.5.182/jpgdown/k032.jpg",
-	        "http://211.190.5.182/jpgdown/k033.jpg",
-	        "http://211.190.5.182/jpgdown/k034.jpg",
-	        "http://211.190.5.182/jpgdown/k035.jpg",
-	        "http://211.190.5.182/jpgdown/k036.jpg",
-	        "http://211.190.5.182/jpgdown/k037.jpg",
-	        "http://211.190.5.182/jpgdown/k038.jpg",
-	        "http://211.190.5.182/jpgdown/k039.jpg",
-	        "http://211.190.5.182/jpgdown/k040.jpg",
-	        "http://211.190.5.182/jpgdown/k041.jpg",
-	        "http://211.190.5.182/jpgdown/k042.jpg",
-	        "http://211.190.5.182/jpgdown/k043.jpg",
-	};
 	
-	
-	private String[] mStrings_c={
-	        "http://211.190.5.182/jpgdown/c001.jpg",
-	        "http://211.190.5.182/jpgdown/c002.jpg",
-	        "http://211.190.5.182/jpgdown/c003.jpg",
-	        "http://211.190.5.182/jpgdown/c004.jpg",
-	        "http://211.190.5.182/jpgdown/c005.jpg",
-	        "http://211.190.5.182/jpgdown/c006.jpg",
-	        "http://211.190.5.182/jpgdown/c007.jpg",
-	        "http://211.190.5.182/jpgdown/c008.jpg",
-	        "http://211.190.5.182/jpgdown/c009.jpg",
-	        "http://211.190.5.182/jpgdown/c010.jpg",
-	        "http://211.190.5.182/jpgdown/c011.jpg",
-	        "http://211.190.5.182/jpgdown/c012.jpg",
-	        "http://211.190.5.182/jpgdown/c013.jpg",
-	        "http://211.190.5.182/jpgdown/c014.jpg",
-	        "http://211.190.5.182/jpgdown/c015.jpg",
-	        "http://211.190.5.182/jpgdown/c016.jpg",
-	        "http://211.190.5.182/jpgdown/c017.jpg",
-	        "http://211.190.5.182/jpgdown/c018.jpg",
-	};
-	
-	private String[] mStrings_j={
-	        "http://211.190.5.182/jpgdown/j001.jpg",
-	        "http://211.190.5.182/jpgdown/j002.jpg",
-	        "http://211.190.5.182/jpgdown/j003.jpg",
-	        "http://211.190.5.182/jpgdown/j004.jpg",
-	        "http://211.190.5.182/jpgdown/j005.jpg",
-	        "http://211.190.5.182/jpgdown/j006.jpg",
-	        "http://211.190.5.182/jpgdown/j007.jpg",
-	        "http://211.190.5.182/jpgdown/j008.jpg",
-	        "http://211.190.5.182/jpgdown/j009.jpg",
-	        "http://211.190.5.182/jpgdown/j010.jpg",
-	        "http://211.190.5.182/jpgdown/j011.jpg",
-	        "http://211.190.5.182/jpgdown/j012.jpg",
-	        "http://211.190.5.182/jpgdown/j013.jpg",
-
-	};
-	
-	
-	private String[] mStrings_o={
-	        "http://211.190.5.182/jpgdown/o001.jpg",
-	        "http://211.190.5.182/jpgdown/o002.jpg",
-	        "http://211.190.5.182/jpgdown/o003.jpg",
-	        "http://211.190.5.182/jpgdown/o004.jpg",
-	        "http://211.190.5.182/jpgdown/o005.jpg",
-	        "http://211.190.5.182/jpgdown/o006.jpg",
-	        "http://211.190.5.182/jpgdown/o007.jpg",
-	        "http://211.190.5.182/jpgdown/o008.jpg",
-	        "http://211.190.5.182/jpgdown/o009.jpg",
-	        "http://211.190.5.182/jpgdown/o010.jpg",
-	        "http://211.190.5.182/jpgdown/o011.jpg",
-	        "http://211.190.5.182/jpgdown/o012.jpg",
-	        "http://211.190.5.182/jpgdown/o013.jpg",
-	        "http://211.190.5.182/jpgdown/o014.jpg",
-	        "http://211.190.5.182/jpgdown/o015.jpg",
-	        "http://211.190.5.182/jpgdown/o016.jpg",
-	        "http://211.190.5.182/jpgdown/o017.jpg",
-	        "http://211.190.5.182/jpgdown/o018.jpg",
-	        "http://211.190.5.182/jpgdown/o019.jpg",
-	        "http://211.190.5.182/jpgdown/o020.jpg",
-	        "http://211.190.5.182/jpgdown/o021.jpg",
-	        "http://211.190.5.182/jpgdown/o022.jpg",
-	        "http://211.190.5.182/jpgdown/o023.jpg",
-	        "http://211.190.5.182/jpgdown/o024.jpg",
-	        "http://211.190.5.182/jpgdown/o025.jpg",
-	        "http://211.190.5.182/jpgdown/o026.jpg",
-	        "http://211.190.5.182/jpgdown/o027.jpg",
-	        "http://211.190.5.182/jpgdown/o028.jpg",
-	        "http://211.190.5.182/jpgdown/o029.jpg",
-	        "http://211.190.5.182/jpgdown/o030.jpg",
-	        "http://211.190.5.182/jpgdown/o031.jpg",
-	        "http://211.190.5.182/jpgdown/o032.jpg",
-	        "http://211.190.5.182/jpgdown/o033.jpg",
-	        "http://211.190.5.182/jpgdown/o034.jpg",
-	        "http://211.190.5.182/jpgdown/o035.jpg",
-	        "http://211.190.5.182/jpgdown/o036.jpg",
-	        "http://211.190.5.182/jpgdown/o037.jpg",
-	        "http://211.190.5.182/jpgdown/o038.jpg",
-	        "http://211.190.5.182/jpgdown/o039.jpg",
-	        "http://211.190.5.182/jpgdown/o040.jpg",
-	        "http://211.190.5.182/jpgdown/o041.jpg",
-	        "http://211.190.5.182/jpgdown/o042.jpg",
-	        "http://211.190.5.182/jpgdown/o043.jpg",
-	};
-	
-	
-	
-	private String[] mStrings_a={
-	        "http://211.190.5.182/jpgdown/a001.jpg",
-	        "http://211.190.5.182/jpgdown/a002.jpg",
-	        "http://211.190.5.182/jpgdown/a003.jpg",
-	        "http://211.190.5.182/jpgdown/a004.jpg",
-	        "http://211.190.5.182/jpgdown/a005.jpg",
-	        "http://211.190.5.182/jpgdown/a006.jpg",
-	        "http://211.190.5.182/jpgdown/a007.jpg",
-	        "http://211.190.5.182/jpgdown/a008.jpg",
-	        "http://211.190.5.182/jpgdown/a009.jpg",
-	        "http://211.190.5.182/jpgdown/a010.jpg",
-	        "http://211.190.5.182/jpgdown/a011.jpg",
-	        "http://211.190.5.182/jpgdown/a012.jpg",
-	        "http://211.190.5.182/jpgdown/a013.jpg",
-	        "http://211.190.5.182/jpgdown/a014.jpg",
-	        "http://211.190.5.182/jpgdown/a015.jpg",
-	        "http://211.190.5.182/jpgdown/a016.jpg",
-	        "http://211.190.5.182/jpgdown/a017.jpg",
-	        "http://211.190.5.182/jpgdown/a018.jpg",
-	        "http://211.190.5.182/jpgdown/a019.jpg",
-	        "http://211.190.5.182/jpgdown/a020.jpg",
-	        "http://211.190.5.182/jpgdown/a021.jpg",
-	        "http://211.190.5.182/jpgdown/a022.jpg",
-	        "http://211.190.5.182/jpgdown/a023.jpg",
-	};
-	
-	private String[] mStrings_s={
-	        "http://211.190.5.182/jpgdown/s001.jpg",
-	        "http://211.190.5.182/jpgdown/s002.jpg",
-	        "http://211.190.5.182/jpgdown/s003.jpg",
-	        "http://211.190.5.182/jpgdown/s004.jpg",
-	        "http://211.190.5.182/jpgdown/s005.jpg",
-	        "http://211.190.5.182/jpgdown/s006.jpg",
-	        "http://211.190.5.182/jpgdown/s007.jpg",
-	};
 	
 	
 	
