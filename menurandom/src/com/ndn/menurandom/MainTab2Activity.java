@@ -28,6 +28,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -168,22 +169,14 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void drawMenu(MenuData menuData) {
-		ImageView image = (ImageView) findViewById(R.id.menu_image);
+/*		ImageView image = (ImageView) findViewById(R.id.menu_image);
 		image.setImageResource(R.drawable.img1);
 
 		TextView text = (TextView) findViewById(R.id.menu_name);
 		text.setText(menuData.name);
 
 		TextView text_exp = (TextView) findViewById(R.id.menu_explanation);
-		text.setText(menuData.explanation);
-		
-		// search other menu
-		Button btn1 = (Button) findViewById(R.id.btn_othermenu);
-		btn1.setOnClickListener(this);
-
-		// search a restaurant
-		Button btn2 = (Button) findViewById(R.id.btn_search);
-		btn2.setOnClickListener(this);
+		text.setText(menuData.explanation);*/
 	}
 	
 	public void onClick(View v) {
