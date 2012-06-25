@@ -169,14 +169,14 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void drawMenu(MenuData menuData) {
-/*		ImageView image = (ImageView) findViewById(R.id.menu_image);
+		ImageView image = (ImageView) findViewById(R.id.menu_image);
 		image.setImageResource(R.drawable.img1);
 
 		TextView text = (TextView) findViewById(R.id.menu_name);
 		text.setText(menuData.name);
 
 		TextView text_exp = (TextView) findViewById(R.id.menu_explanation);
-		text.setText(menuData.explanation);*/
+		text.setText(menuData.explanation);
 	}
 	
 //	private void findMyLocation() {
