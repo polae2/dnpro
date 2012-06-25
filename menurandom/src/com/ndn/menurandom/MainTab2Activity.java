@@ -177,6 +177,28 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 
 		TextView text_exp = (TextView) findViewById(R.id.menu_explanation);
 		text.setText(menuData.explanation);
+		
+		// search other menu
+		Button btn1 = (Button) findViewById(R.id.btn_othermenu);
+		btn1.setOnClickListener(this);
+
+		// search a restaurant
+		Button btn2 = (Button) findViewById(R.id.btn_search);
+		btn2.setOnClickListener(this);
+	}
+	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+
+		case R.id.btn_othermenu:
+			getRecommandMenu();
+			break;
+			
+		case R.id.btn_search:
+			searchMap();
+			break;
+		}
 	}
 	
 //	private void findMyLocation() {
