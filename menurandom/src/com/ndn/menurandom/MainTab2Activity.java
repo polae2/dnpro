@@ -179,20 +179,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		text.setText(menuData.explanation);*/
 	}
 	
-	public void onClick(View v) {
-		
-		switch (v.getId()) {
-
-		case R.id.btn_othermenu:
-			getRecommandMenu();
-			break;
-			
-		case R.id.btn_search:
-			searchMap();
-			break;
-		}
-	}
-	
 //	private void findMyLocation() {
 //		searhingLatLng();
 //	}
