@@ -172,7 +172,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		ImageView image = (ImageView) findViewById(R.id.menu_image);
 		image.setImageResource(R.drawable.img1);
 
-		TextView text_exp = (TextView) findViewById(R.id.menu_explanation);
+		TextView text = (TextView) findViewById(R.id.menu_explanation);
 		text.setText(menuData.explanation);
 		
 		// search other menu
