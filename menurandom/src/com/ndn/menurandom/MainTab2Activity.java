@@ -28,14 +28,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,8 +74,9 @@ public class MainTab2Activity extends Activity implements OnClickListener {
     
     private int weather = NONE;
 	
-	
-	
+	/////////////////////////////////////////////////////
+	// Menu Variable	
+	private MenuData menuData;
 	
 	
 	
@@ -108,9 +108,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		super.onStart();
 //		findMyLocation();
 		getWeatherInformation();
-		drawWeather();
-		MenuData menuData = getRecommandMenu();
-		drawMenu(menuData);
+		getRecommandMenu();
 	}
 	
 	protected void onResume() {Log.e("NHK", "onResume");
@@ -132,11 +130,11 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	private void drawWeather() {
 		ImageView imageView = (ImageView) findViewById(R.id.weatherImage);
-		
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
 		switch (weather) {
 		case SUNNY:
-	        Calendar calendar = Calendar.getInstance();
-	        Date date = calendar.getTime();
 	        // if it's night
 	        if( 20 < date.getHours() || 6 > date.getHours() )
 	        	imageView.setImageResource(R.drawable.weather_moon);
@@ -146,7 +144,12 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			break;
 		
 		case CLOUDY:
-			imageView.setImageResource(R.drawable.weather_cloud);
+	        // if it's night
+	        if( 20 < date.getHours() || 6 > date.getHours() )
+	        	imageView.setImageResource(R.drawable.weather_moon);
+	        // if it's daytime
+	        else
+				imageView.setImageResource(R.drawable.weather_cloud);
 			break;
 		
 		case RAINY:
@@ -165,14 +168,36 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void drawMenu(MenuData menuData) {
-/*		ImageView image = (ImageView) findViewById(R.id.menu_image);
+		ImageView image = (ImageView) findViewById(R.id.menu_image);
 		image.setImageResource(R.drawable.img1);
 
 		TextView text = (TextView) findViewById(R.id.menu_name);
 		text.setText(menuData.name);
 
 		TextView text_exp = (TextView) findViewById(R.id.menu_explanation);
-		text.setText(menuData.explanation);*/
+		text.setText(menuData.explanation);
+		
+		// search other menu
+		Button btn1 = (Button) findViewById(R.id.btn_othermenu);
+		btn1.setOnClickListener(this);
+
+		// search a restaurant
+		Button btn2 = (Button) findViewById(R.id.btn_search);
+		btn2.setOnClickListener(this);
+	}
+	
+	public void onClick(View v) {
+		
+		switch (v.getId()) {
+
+		case R.id.btn_othermenu:
+			getRecommandMenu();
+			break;
+			
+		case R.id.btn_search:
+			searchMap();
+			break;
+		}
 	}
 	
 //	private void findMyLocation() {
@@ -254,7 +279,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			}
 		} catch (Exception e) {
 			Log.e("NHK", "weather ERROR");
-			return;
 		}
 		
 		if ( weatherData.equals("Clear") || weatherData.equals("Partly Cloudy") )
@@ -267,10 +291,19 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			this.weather = SNOWY;
 		else
 			this.weather = NONE;
+		
+		drawWeather();
 	}
 	
-	private MenuData getRecommandMenu() {
-		return new RecommandEngine(weather).getRecommandMenuData();
+	private void getRecommandMenu() {
+		menuData = new RecommandEngine(weather).getRecommandMenuData();
+		drawMenu(menuData);
+	}
+	
+	private void searchMap() {
+		Intent intent = new Intent(this, SearchMapActivity.class);
+		intent.putExtra("search_menu", menuData.name);
+		startActivity(intent);
 	}
 
 	/*
@@ -323,23 +356,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 //        */
 //		mSlideView= (MenuSlideView)findViewById(R.id.menu_slide);
 //	}
-
-	
-	public void onClick(View v) {
-		
-		if(v.equals(anjuButton)){//안주버튼 클릭시 실행
-			Intent intent = new Intent(this, SearchMapActivity.class); //지도 검색 Class 설정
-			intent.putExtra("search_menu", anjuNameEditText.getText().toString());
-			startActivity(intent); // 액티비티를 실행합니다.
-		}
-		
-		if(v.equals(siksaButton)){//식사버튼 클릭시 실행
-			Intent intent = new Intent(this, SearchMapActivity.class); //지도 검색 Class 설정
-			intent.putExtra("search_menu", siksaNameEditText.getText().toString());
-			startActivity(intent); // 액티비티를 실행합니다.
-		}
-	}
-	
 
 	/*
 	 * 추천 메뉴를 조회식 검색조건 만들어서 Map으로 넘겨줌
