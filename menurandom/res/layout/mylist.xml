@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-       android:layout_height="60dip"
-       android:padding="5dip"
-       android:background="@drawable/page3" 
+       android:layout_height="5dp"
+       android:padding="5dp"
+       
      >
 <ImageView
        android:id="@+id/img"
@@ -20,7 +21,9 @@
        android:textColor="#00ff00"
        android:textSize="26sp"
        android:layout_centerVertical="true"
-       android:layout_toRightOf="@id/img"/>
+       android:layout_toRightOf="@id/img"
+		android:visibility="gone" />"
+		
 <TextView
        android:id="@+id/id"
        android:layout_width="wrap_content"
@@ -29,7 +32,7 @@
        android:textSize="26sp"
        android:layout_centerVertical="true"
        android:layout_toLeftOf="@id/text"
-       android:visibility="invisible"/>
+       />
 <ImageButton
        android:id="@+id/btn"
        android:layout_width="wrap_content"
