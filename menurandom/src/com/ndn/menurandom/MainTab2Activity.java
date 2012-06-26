@@ -301,7 +301,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	private void searchMap() {
 		Intent intent = new Intent(this, SearchMapActivity.class);
-		intent.putExtra("search_menu", menuData.name);
+		intent.putExtra("search_menu", menuData.searchName);
 		startActivity(intent);
 	}
 

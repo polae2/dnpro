@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.SlidingDrawer;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ndn.menurandom.data.RestaurantData;
@@ -49,11 +50,10 @@ public class SearchMapActivity extends NMapActivity {
 	private MapContainerView mMapContainerView;
 	private NMapController mMapController;
 	private NMapView mMapView;
-	
 	private NMapOverlayManager mOverlayManager;
 	private SearchMapResourceProvider mMapViewerResourceProvider;
-	
 	private NMapLocationManager mMapLocationManager;
+	private TextView textView;
 
 	
 	
@@ -146,7 +146,9 @@ public class SearchMapActivity extends NMapActivity {
 		// add NMapView
 		mMapContainerView.addView(mMapView);
 		
-		// add SlidingDrawer
+		textView = new TextView(this);
+		textView.setText("검색값이 없으면 여기에 없다고 표시가 나와야 함");
+		mMapContainerView.addView(textView);
 	}
 	
 	private void initializeNMap() {
@@ -218,7 +220,7 @@ public class SearchMapActivity extends NMapActivity {
 					Log.d("NHK", "Current Latitude: " + String.valueOf(myLocation.getLatitude()) + "   Longitude: " + String.valueOf(myLocation.getLongitude()));
 				
 				mMyGeoPoint = myLocation;
-//				mMapController.setMapCenter(myLocation);
+				mMapController.setMapCenter(myLocation, 10);
 				
 				findPlacemarkAtLocation(mMyGeoPoint.getLongitude(), mMyGeoPoint.getLatitude());
 				stopMyLocation();
@@ -258,13 +260,13 @@ public class SearchMapActivity extends NMapActivity {
 		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
 		
 		poiDataOverlay.showAllPOIdata(0);
-		
-		Log.e("NHK", "" + String.valueOf(mMapController.getZoomLevel()));
 	}
 	
 	private void searchRestaurant() {
 		new Thread(new Runnable(){
 			public void run(){
+				boolean isToast = false;
+				
 				if(DEBUG_MODE)
 					Log.d("NHK", "Thread Start..... Untill finding my location");
 				
@@ -287,7 +289,25 @@ public class SearchMapActivity extends NMapActivity {
 				if(DEBUG_MODE)
 					Log.d("NHK", "" + String.valueOf(searchedRestaurantIndex) + " Restaurants have found");
 				
-				displayRestaurantItem();
+				if (searchedRestaurantIndex != 0)
+					displayRestaurantItem();
+				// no search
+				else if (searchedRestaurantIndex == 0){
+					if(DEBUG_MODE)
+						Log.d("NHK", "Naver search key: " + currentAddress+" "+SEARCH_MENU);
+					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					/////////////////////////////////////////////////////              //////////////////////////////////////////////
+					/////////                      ///////////////////////   ///////     ////////////////////////////////////////////
+					///////////////////   ////////////////////////////////   /////////      /////////////////////////////////////////
+					///////////////////   ////////////////////////////////   //////////     /////////////////////////////////////////
+					///////////////////   ///////////////        /////////   ///////////     //////////         /////////////////////
+					///////////////////   /////////////   /////    ///////   //////////     /////////    /////    ///////////////////
+					///////////////////   ///////////   ////////    //////   /////////     ////////    ////////    //////////////////
+					///////////////////   //////////   //////////    /////   ///////     //////////    /////////    /////////////////
+					///////////////////   ///////////   ////////    //////   ////     //////////////    ///////    //////////////////
+					///////////////////   /////////////          /////////          /////////////////            ////////////////////
+					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				}
 			}
 		}).start();
 	}
@@ -392,7 +412,10 @@ public class SearchMapActivity extends NMapActivity {
 				final int childLeft = (width - childWidth) / 2;
 				final int childTop = (height - childHeight) / 2;
 
-				view.layout(childLeft, childTop, childLeft+childWidth, childTop+childHeight);
+				if (i==0)
+					view.layout(childLeft, childTop, childLeft+childWidth, (childTop+childHeight)*4/5);
+				else
+					view.layout(childLeft+10, (childTop+childHeight)*4/5+10, childLeft+childWidth-10, childTop+childHeight);
 			}
 
 			if (changed) {
