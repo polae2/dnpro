@@ -40,7 +40,7 @@
             <intent-filter >
             </intent-filter>
         </activity>
-        <activity android:name=".SearchMapActivity" >
+        <activity android:name=".search.SearchMapActivity" >
             <intent-filter >
             </intent-filter>
         </activity>

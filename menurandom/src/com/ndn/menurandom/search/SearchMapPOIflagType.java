@@ -5,7 +5,7 @@
  * NHN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms. 
  */
 
-package com.ndn.menurandom;
+package com.ndn.menurandom.search;
 
 public class SearchMapPOIflagType {
 	public static final int UNKNOWN = 0x0000;

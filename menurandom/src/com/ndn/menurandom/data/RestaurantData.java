@@ -1,4 +1,4 @@
-package com.ndn.menurandom;
+package com.ndn.menurandom.data;
 
 public class RestaurantData {
 	public String sTitle;		// name

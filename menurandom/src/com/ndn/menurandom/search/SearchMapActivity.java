@@ -1,4 +1,4 @@
-package com.ndn.menurandom;
+package com.ndn.menurandom.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.Toast;
 
+import com.ndn.menurandom.data.RestaurantData;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapLocationManager;
@@ -33,11 +34,18 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
 public class SearchMapActivity extends NMapActivity {
+	private static final boolean DEBUG_MODE = true;
 	// set my API key which is registered for com.ndn.menurandom package
 	private static final String NAVER_MAP_KEY = "749a7f89c8934b5d50a24f3a9ca8af01";
-	private String SEARCH_MENU = "";
+	private String SEARCH_MENU;
 	private static final int SEARCH_INDEX = 3;
 	
+	/*	private String BACKBTNCURRENT = BACKBTN_NOTCOMPLEAT;
+	private static String BACKBTN_NOTCOMPLEAT = "0";	
+	private static String BACKBTN_COMPLEAT = "1";*/
+	
+	////////////////////////////////////////////////////////////////////////////
+	// Essential Variables
 	private MapContainerView mMapContainerView;
 	private NMapController mMapController;
 	private NMapView mMapView;
@@ -47,10 +55,7 @@ public class SearchMapActivity extends NMapActivity {
 	
 	private NMapLocationManager mMapLocationManager;
 
-/*	private String BACKBTNCURRENT = BACKBTN_NOTCOMPLEAT;
-	private static String BACKBTN_NOTCOMPLEAT = "0";	
-	private static String BACKBTN_COMPLEAT = "1";*/
-
+	
 	
 	////////////////////////////////////////////////////////////////////////////
 	// for restoreInstance & saveInstance 
@@ -61,14 +66,14 @@ public class SearchMapActivity extends NMapActivity {
 	private static final String KEY_CENTER_LATITUDE = "MainTab3Activity.centerLatitudeE6";
 
 	private SharedPreferences mPreferences;
-	
+		
 	
 	
 	////////////////////////////////////////////////////////////////////////////
 	// for POIitem
 //	private NMapPOIitem mPOIitem;
 	private SlidingDrawer mSlidingDrawer;
-	
+		
 	
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -109,7 +114,6 @@ public class SearchMapActivity extends NMapActivity {
 	
 		startMyLocation();
 		searchRestaurant();
-
 	}
 
 	protected void onResume() {
@@ -125,6 +129,18 @@ public class SearchMapActivity extends NMapActivity {
 
 		super.onDestroy();
 	}
+	
+	/*	public void onBackPressed(){
+
+	if(BACKBTNCURRENT == BACKBTN_COMPLEAT){
+		finish();
+	}
+	else
+	{
+		
+	}
+	BACKBTNCURRENT=BACKBTN_COMPLEAT;
+	}*/
 
 	private void initializeView() {
 		// add NMapView
@@ -132,19 +148,6 @@ public class SearchMapActivity extends NMapActivity {
 		
 		// add SlidingDrawer
 	}
-	
-	
-/*	public void onBackPressed(){
-
-		if(BACKBTNCURRENT == BACKBTN_COMPLEAT){
-			finish();
-		}
-		else
-		{
-			
-		}
-		BACKBTNCURRENT=BACKBTN_COMPLEAT;
-	}*/
 	
 	private void initializeNMap() {
 		mMapView.setClickable(true);
@@ -187,6 +190,9 @@ public class SearchMapActivity extends NMapActivity {
 	}
 	
 	private void startMyLocation() {
+		if(DEBUG_MODE)
+			Log.d("NHK", "start searching my location");
+		
 		boolean is = mMapLocationManager.isMyLocationEnabled();
 		if (is) {
 			
@@ -194,6 +200,11 @@ public class SearchMapActivity extends NMapActivity {
 			boolean isMyLocationEnabled = mMapLocationManager.enableMyLocation(false);
 			
 			if ( !isMyLocationEnabled ) {
+				if(DEBUG_MODE) {
+					Log.d("NHK", "Cannot start searching my location");
+					Log.d("NHK", "Move to setting page");
+				}
+				
 				Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 				startActivity(goToSettings);
 				
@@ -203,12 +214,13 @@ public class SearchMapActivity extends NMapActivity {
 
 		mMapLocationManager.setOnLocationChangeListener(new NMapLocationManager.OnLocationChangeListener() {
 			public boolean onLocationChanged(NMapLocationManager locationManager, NGeoPoint myLocation) {
+				if(DEBUG_MODE)
+					Log.d("NHK", "Current Latitude: " + String.valueOf(myLocation.getLatitude()) + "   Longitude: " + String.valueOf(myLocation.getLongitude()));
+				
 				mMyGeoPoint = myLocation;
 //				mMapController.setMapCenter(myLocation);
 				
-// 남훈아 에러나는 부분이야
 				findPlacemarkAtLocation(mMyGeoPoint.getLongitude(), mMyGeoPoint.getLatitude());
-///////////////////////////////////
 				stopMyLocation();
 				return true;
 			}
@@ -226,10 +238,15 @@ public class SearchMapActivity extends NMapActivity {
 	}
 
 	private void stopMyLocation() {
+		if(DEBUG_MODE)
+			Log.d("NHK", "stop searching my location");
 		mMapLocationManager.disableMyLocation();
 	}
 
 	private void displayRestaurantItem() {
+		if(DEBUG_MODE)
+			Log.d("NHK", "Display restaurants");
+		
 		int markerId = SearchMapPOIflagType.PIN;
 
 		NMapPOIdata poiData = new NMapPOIdata(searchedRestaurantIndex, mMapViewerResourceProvider);
@@ -241,18 +258,35 @@ public class SearchMapActivity extends NMapActivity {
 		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
 		
 		poiDataOverlay.showAllPOIdata(0);
+		
+		Log.e("NHK", "" + String.valueOf(mMapController.getZoomLevel()));
 	}
 	
 	private void searchRestaurant() {
 		new Thread(new Runnable(){
 			public void run(){
+				if(DEBUG_MODE)
+					Log.d("NHK", "Thread Start..... Untill finding my location");
+				
 				while( currentAddress == null ) {
 					try{
+						if(DEBUG_MODE)
+							Log.d("NHK", "Thread Sleep for 3000 miliseconds...");
+						
 						Thread.sleep(3000);
 					} catch (Exception e) {
 					}
 				}
+				if(DEBUG_MODE) {
+					Log.d("NHK", "Thread have stopped");
+					Log.d("NHK", "start searching near Restaurants");
+				}
+				
 				searchedRestaurantIndex = mSearchMapParser.search(restaurantData, currentAddress+" "+SEARCH_MENU, SEARCH_INDEX, 1);
+				
+				if(DEBUG_MODE)
+					Log.d("NHK", "" + String.valueOf(searchedRestaurantIndex) + " Restaurants have found");
+				
 				displayRestaurantItem();
 			}
 		}).start();

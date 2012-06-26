@@ -1,4 +1,4 @@
-package com.ndn.menurandom;
+package com.ndn.menurandom.search;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.ndn.menurandom.R;
+import com.ndn.menurandom.R.drawable;
 import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;

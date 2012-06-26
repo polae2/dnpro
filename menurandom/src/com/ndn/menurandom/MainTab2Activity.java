@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.ndn.menurandom.data.MenuData;
 import com.ndn.menurandom.db.DBHandler;
+import com.ndn.menurandom.search.SearchMapActivity;
 
 public class MainTab2Activity extends Activity implements OnClickListener {
 	private String currentState = STATE_FIRST;

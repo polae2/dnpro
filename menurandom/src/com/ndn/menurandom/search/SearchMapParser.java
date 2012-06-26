@@ -1,10 +1,12 @@
-package com.ndn.menurandom;
+package com.ndn.menurandom.search;
 
 import java.net.URL;
 import java.net.URLEncoder;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.ndn.menurandom.data.RestaurantData;
 
 import android.util.Log;
 
