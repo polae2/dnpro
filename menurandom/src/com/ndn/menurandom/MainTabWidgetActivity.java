@@ -1,10 +1,7 @@
 package com.ndn.menurandom;
 
-import com.ndn.menurandom.db.DBHandler;
-
 import android.app.TabActivity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;

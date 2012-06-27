@@ -1,31 +1,25 @@
 package com.ndn.menurandom;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-
-import com.ndn.example.LazyAdapter.ViewHolder;
-import com.ndn.menurandom.data.MenuInfo;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MenuListAdapter extends BaseAdapter {
+import com.ndn.menurandom.data.MenuInfo;
+//import com.ndn.menurandom.MainTab1Activity;
 
-	private Activity activity;
+public class MenuListAdapter extends BaseAdapter{
+
+	private MainTab1Activity activity;
 		
 	private List<MenuInfo> mMenuInfos= null;
 	private LayoutInflater inflater=null;
@@ -35,7 +29,7 @@ public class MenuListAdapter extends BaseAdapter {
 
   
 
-	public MenuListAdapter(Activity activity, List<MenuInfo> menuInfos) {
+	public MenuListAdapter(MainTab1Activity activity, List<MenuInfo> menuInfos) {
 		this.activity = activity;
 		this.mMenuInfos = menuInfos;
 		
@@ -76,9 +70,10 @@ public class MenuListAdapter extends BaseAdapter {
 			holder=(ViewHolder)vi.getTag();
 		}
     
-		MenuInfo menuInfo = mMenuInfos.get(position);
-		holder.name.setText(menuInfo.getName());
-		
+		final MenuInfo menuInfo = mMenuInfos.get(position);
+		final String name = menuInfo.getName();
+		holder.name.setText(name);
+		final String pictureName = menuInfo.getPictureName();
     
 		String url = "http://211.190.5.182/jpgdown/" + menuInfo.getPictureName() + ".jpg";
 		downloader.download(url, holder.image);
@@ -86,15 +81,19 @@ public class MenuListAdapter extends BaseAdapter {
 			holder.btn.setOnClickListener(new OnClickListener() {
 
 				public void onClick(View v) {
-					MenuInfo menuInfo = mMenuInfos.get(position);
-					Toast toast = Toast.makeText(activity, menuInfo.getId(), Toast.LENGTH_SHORT);
-					toast.show();
+					
+					//Toast toast = Toast.makeText(activity, menuInfo.getId(), Toast.LENGTH_SHORT);
+					//toast.show();
+					
+					
+					activity.moveShowPage(name, pictureName);
+					
 					//String str = mMenuInfos.get(position);
 					//int str2 = arSrc.get(pos).Icon;
 
 					//moveShowPage(str,"");//메뉴 소개 페이지로 이동!
 					
-					
+					//activity.moveShowPage(txt, img)
 				}
 			});
 

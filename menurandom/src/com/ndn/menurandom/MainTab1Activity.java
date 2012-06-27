@@ -1,19 +1,14 @@
 package com.ndn.menurandom;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
+import com.ndn.example.LazyAdapter.ViewHolder;
 import com.ndn.menurandom.data.MenuInfo;
 import com.ndn.menurandom.db.DBHandler;
-import com.nhn.android.maps.opt.T;
-import com.nhn.android.maps.opt.l;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,18 +17,12 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -133,6 +122,10 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	private View view_pic;
 //*********************** 끝 *************************
 
+	private ImageDownloader downloader;
+	
+	
+	
 //******************************* 끝 *************************************
 	
 	
@@ -962,11 +955,14 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	/*
 	 * 메뉴 소개 페이지로 이동!
 	 */
-	private void moveShowPage(String txt, String img) {
+	protected void moveShowPage(String txt, String img) {
 		
-		ImageView imageView = (ImageView) findViewById(R.id.img_View);
-		int resId = getResources().getIdentifier("img1", "drawable", "com.ndn.menurandom");
-		imageView.setImageResource(resId);
+		ImageView imageview = (ImageView) findViewById(R.id.img_View);
+		downloader = new ImageDownloader(this, "/cache/lazyList", R.drawable.ic_launcher, false);
+		//ImageView imageView = (ImageView) findViewById(R.id.img_View);
+		String url = "http://211.190.5.182/jpgdown/" + img + ".jpg";
+		downloader.download(url, imageview);
+		
 		Toast toast = Toast.makeText(getApplicationContext(), img, 2);
 		toast.show();
 		

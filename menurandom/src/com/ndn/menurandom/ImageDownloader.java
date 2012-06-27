@@ -31,7 +31,6 @@ import android.graphics.drawable.Drawable;
 
 //import android.net.http.AndroidHttpClient;
 import com.ndn.menurandom.AndroidHttpClient;
-import android.net.http.*;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
