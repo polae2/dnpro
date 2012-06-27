@@ -44,7 +44,7 @@
             <intent-filter >
             </intent-filter>
         </activity>
-        <activity android:name="TopTabActivity">
+        <activity android:name="com.ndn.example.TopTabActivity">
             <intent-filter>
                  <action android:name="android.intent.action.VIEW" /> 
             </intent-filter>

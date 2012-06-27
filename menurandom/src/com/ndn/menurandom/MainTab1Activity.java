@@ -957,101 +957,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	
 	
 	
-	//어댑터를 커스터마이징 해야됨
-	class MyListAdapter extends BaseAdapter{
-	    Context maincon;
-	    LayoutInflater Inflater;
-	    ArrayList<MyItem> arSrc;
-	    int layout;
-	   
-	    //생성자
-	    public MyListAdapter(Context context, int alayout, ArrayList<MyItem> aarSrc){
-	          maincon = context;
-	          //생성시 인플레이트 준비를 미리해둠
-	          Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	          arSrc = aarSrc;
-	          layout = alayout;//alayout은 메인에서보면 R.layout.icontext임 int타입이여서 이런식으로도 가능
-	    }
-	   
-	    //추상메소드를 구현해야됨
-	         public int getCount() {//getCount는 데이터의 사이즈를 리턴하면됨
-	                // TODO Auto-generated method stub
-	                return arSrc.size();
-	         }
 
-	         public Object getItem(int position) {
-	                // TODO Auto-generated method stub
-	                return arSrc.get(position).menuName;//getItem은 그 position의 값을 리턴하면됨
-	         }
-
-	         public long getItemId(int position) {//getItemId는 position을 리턴해주면됨
-	                // TODO Auto-generated method stub
-	                return position;
-	         }
-
-	        
-	         //이 부분은 리스트 각항목 하나하나를 만드는 부분임
-	          
-	         public View getView(int position, View convertView, ViewGroup parent) {
-	                // TODO Auto-generated method stub
-	                final int pos = position;
-	                
-	                MyItemHolder holder  = null;
-	                
-	                //첫번째는 convertView가 null이여서 inflate를 통해서
-	                //마지막인자는 Whether the inflated hierarchy should be attached to the root parameter?
-	                //해석 못했음
-	                if(convertView == null){//layout은 R.layout.icontext parent는 뷰그룹인 리스트뷰를 뜻함
-	                       convertView = Inflater.inflate(layout, parent, false);
-	                      
-	                       holder = new MyItemHolder();
-	                     //이미지뷰를 세팅하고
-	   	                   holder.img = (ImageView)convertView.findViewById(R.id.img);
-	   	                   holder.id = (TextView)convertView.findViewById(R.id.id);
-	   	                   holder.txt = (TextView)convertView.findViewById(R.id.text);
-	   	                   holder.btn = (ImageButton)convertView.findViewById(R.id.btn);
-		                   convertView.setTag(holder);
-	                }
-
-	                holder = (MyItemHolder)convertView.getTag();
-	                if(holder != null)
-	                {
-		                holder.img.setImageResource(arSrc.get(position).Icon);
-		               
-		              //텍스브튜도 세팅
-		                holder.id.setText(arSrc.get(position).id);
-		               
-		              //텍스브튜도 세팅
-		                holder.txt.setText(arSrc.get(position).menuName);
-		               
-		               
-		                //버튼도 세팅함
-		                holder.btn.setOnClickListener(new OnClickListener() {
-		                      
-		                       public void onClick(View v) {
-		                             // TODO Auto-generated method stub
-		                             String str = arSrc.get(pos).menuName + "(id : " + arSrc.get(pos).id + ")";
-		                             int str2 = arSrc.get(pos).Icon;
-		                             
-		                             Toast toast = Toast.makeText(getApplicationContext(), str2, 2);
-		                             toast.show();
-		                             moveShowPage(str,"");//메뉴 소개 페이지로 이동!
-		                       }
-		                });
-	                }
-	               
-	                return convertView;//위 과정이 리스트뷰에 getCount만큼 반복됨
-	         }
-	}
-	
-	
-	class MyItemHolder
-	{
-		public ImageView img;
-		public TextView id;
-		public TextView txt;
-		public ImageButton btn;
-	}
 	
 	/*
 	 * 메뉴 소개 페이지로 이동!
@@ -1069,11 +975,5 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		setViewAsVisible(view_pic);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+		
 }

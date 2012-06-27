@@ -1,4 +1,9 @@
-package com.ndn.menurandom;
+package com.ndn.example;
+
+import com.ndn.menurandom.R;
+import com.ndn.menurandom.R.drawable;
+import com.ndn.menurandom.R.id;
+import com.ndn.menurandom.R.layout;
 
 import android.app.TabActivity;
 import android.content.Context;
