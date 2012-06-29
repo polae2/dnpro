@@ -113,7 +113,6 @@ public class SearchMapActivity extends NMapActivity {
 		Log.e("NHK", "onStart!");
 	
 		startMyLocation();
-		searchRestaurant();
 	}
 
 	protected void onResume() {
@@ -147,7 +146,6 @@ public class SearchMapActivity extends NMapActivity {
 		mMapContainerView.addView(mMapView);
 		
 		textView = new TextView(this);
-		textView.setText("검색값이 없으면 여기에 없다고 표시가 나와야 함");
 		mMapContainerView.addView(textView);
 	}
 	
@@ -220,7 +218,6 @@ public class SearchMapActivity extends NMapActivity {
 					Log.d("NHK", "Current Latitude: " + String.valueOf(myLocation.getLatitude()) + "   Longitude: " + String.valueOf(myLocation.getLongitude()));
 				
 				mMyGeoPoint = myLocation;
-				mMapController.setMapCenter(myLocation, 10);
 				
 				findPlacemarkAtLocation(mMyGeoPoint.getLongitude(), mMyGeoPoint.getLatitude());
 				stopMyLocation();
@@ -263,53 +260,36 @@ public class SearchMapActivity extends NMapActivity {
 	}
 	
 	private void searchRestaurant() {
-		new Thread(new Runnable(){
-			public void run(){
-				boolean isToast = false;
+		Log.d("NHK", "start searching near Restaurants");
 				
-				if(DEBUG_MODE)
-					Log.d("NHK", "Thread Start..... Untill finding my location");
-				
-				while( currentAddress == null ) {
-					try{
-						if(DEBUG_MODE)
-							Log.d("NHK", "Thread Sleep for 3000 miliseconds...");
-						
-						Thread.sleep(3000);
-					} catch (Exception e) {
-					}
-				}
-				if(DEBUG_MODE) {
-					Log.d("NHK", "Thread have stopped");
-					Log.d("NHK", "start searching near Restaurants");
-				}
-				
-				searchedRestaurantIndex = mSearchMapParser.search(restaurantData, currentAddress+" "+SEARCH_MENU, SEARCH_INDEX, 1);
-				
-				if(DEBUG_MODE)
-					Log.d("NHK", "" + String.valueOf(searchedRestaurantIndex) + " Restaurants have found");
-				
-				if (searchedRestaurantIndex != 0)
-					displayRestaurantItem();
-				// no search
-				else if (searchedRestaurantIndex == 0){
-					if(DEBUG_MODE)
-						Log.d("NHK", "Naver search key: " + currentAddress+" "+SEARCH_MENU);
-					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-					/////////////////////////////////////////////////////              //////////////////////////////////////////////
-					/////////                      ///////////////////////   ///////     ////////////////////////////////////////////
-					///////////////////   ////////////////////////////////   /////////      /////////////////////////////////////////
-					///////////////////   ////////////////////////////////   //////////     /////////////////////////////////////////
-					///////////////////   ///////////////        /////////   ///////////     //////////         /////////////////////
-					///////////////////   /////////////   /////    ///////   //////////     /////////    /////    ///////////////////
-					///////////////////   ///////////   ////////    //////   /////////     ////////    ////////    //////////////////
-					///////////////////   //////////   //////////    /////   ///////     //////////    /////////    /////////////////
-					///////////////////   ///////////   ////////    //////   ////     //////////////    ///////    //////////////////
-					///////////////////   /////////////          /////////          /////////////////            ////////////////////
-					/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				}
-			}
-		}).start();
+		searchedRestaurantIndex = mSearchMapParser.search(restaurantData, currentAddress+" "+SEARCH_MENU, SEARCH_INDEX, 1);
+		
+		if(DEBUG_MODE)
+			Log.d("NHK", "" + String.valueOf(searchedRestaurantIndex) + " Restaurants have found");
+		
+		if (searchedRestaurantIndex != 0) {
+			displayRestaurantItem();
+		} else if (searchedRestaurantIndex == 0){
+			if(DEBUG_MODE)
+				Log.d("NHK", "Naver search key: " + currentAddress+" "+SEARCH_MENU);
+
+			textView.setTextSize(20);
+			textView.setText("검색값이 없으면 여기에 없다고 표시가 나와야 \n 하이하이");			
+			mMapController.setMapCenter(mMyGeoPoint, 10);
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////              //////////////////////////////////////////////
+			/////////                      ///////////////////////   ///////     ////////////////////////////////////////////
+			///////////////////   ////////////////////////////////   /////////      /////////////////////////////////////////
+			///////////////////   ////////////////////////////////   //////////     /////////////////////////////////////////
+			///////////////////   ///////////////        /////////   ///////////     //////////         /////////////////////
+			///////////////////   /////////////   /////    ///////   //////////     /////////    /////    ///////////////////
+			///////////////////   ///////////   ////////    //////   /////////     ////////    ////////    //////////////////
+			///////////////////   //////////   //////////    /////   ///////     //////////    /////////    /////////////////
+			///////////////////   ///////////   ////////    //////   ////     //////////////    ///////    //////////////////
+			///////////////////   /////////////          /////////          /////////////////            ////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		}
 	}
 	
 	private final NMapOverlayManager.OnCalloutOverlayListener onCalloutOverlayListener = new NMapOverlayManager.OnCalloutOverlayListener() {
@@ -365,6 +345,8 @@ public class SearchMapActivity extends NMapActivity {
 				Toast.makeText(SearchMapActivity.this, errInfo.toString(), Toast.LENGTH_LONG).show();
 				return;
 			}
+			
+			searchRestaurant();			
 		}
 	};
 

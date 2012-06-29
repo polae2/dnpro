@@ -252,7 +252,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 //			Weather Code
 //			
 //			① Clear
-//			② Partly Cloudy
+//			② Little Cloudy
 //			③ Mostly Cloudy
 //			④ Cloudy
 //			⑤ Rain
@@ -280,7 +280,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			Log.e("NHK", "weather ERROR");
 		}
 		
-		if ( weatherData.equals("Clear") || weatherData.equals("Partly Cloudy") )
+		if ( weatherData.equals("Clear") || weatherData.equals("Little Cloudy") )
 			this.weather = SUNNY;
 		else if ( weatherData.equals("Mostly Cloudy") || weatherData.equals("Cloudy") )
 			this.weather = CLOUDY;
