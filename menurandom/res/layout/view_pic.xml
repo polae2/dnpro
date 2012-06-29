@@ -6,40 +6,48 @@
     android:id="@+id/view_pic"
     android:background="@drawable/page4" 
     >
-
+
 	<RelativeLayout
 	    android:layout_width="fill_parent"
-	    android:layout_height="400dp" 
-	    >
+	    android:layout_height="fill_parent" >
 
 	    <Button
 	        android:id="@+id/btn_Search"
 	        android:layout_width="110dp"
-	        android:layout_height="30dp"
-	       
-	        android:layout_margin="20dp"
-	        android:text="위치검색" />
+	        android:layout_height="40dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="20dp"
+	        android:layout_marginRight="20dp"
+	        android:text="위치검색"
+	        />
 
 	    <EditText
 	        android:id="@+id/img_Txt"
-	        android:layout_width="110dp"
+	        android:layout_width="105dp"
 	        android:layout_height="50dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginTop="100dp"
+	        android:layout_marginRight="5dp"
+	        android:background="#00000000"
+	        android:enabled="false" 
 	        
-	        android:layout_margin="20dp"
-	        android:layout_marginLeft="20dp"
-	        android:enabled="false" >
+	        
+	        />
 
-	        <requestFocus />
-	    </EditText>
-
 	    <ImageView
 	        android:id="@+id/img_View"
-	        android:layout_width="140dp"
-	        android:layout_height="180dp"
-	        android:layout_marginTop="80dp"
-	        android:layout_marginLeft="70dp"
-	        android:src="@drawable/bg_speech" />
-
+	        android:layout_width="165dp"
+	        android:layout_height="165dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginTop="108dp"
+	        android:layout_marginLeft="45dp"
+	        android:src="@drawable/bg_speech"
+	        android:background="#00000000"
+	        android:scaleType="fitXY"
+	         />
 	</RelativeLayout>
 
 </LinearLayout>
