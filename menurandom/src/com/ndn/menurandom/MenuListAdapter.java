@@ -35,7 +35,7 @@ public class MenuListAdapter extends BaseAdapter{
 		
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		downloader = new ImageDownloader(activity, "/cache/lazyList", R.drawable.ic_launcher, false);
+		downloader = new ImageDownloader(activity, "/cache/menurandom", R.drawable.ic_launcher, false);
 	}
   
 

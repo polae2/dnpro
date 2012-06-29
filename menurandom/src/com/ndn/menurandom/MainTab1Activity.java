@@ -958,12 +958,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	protected void moveShowPage(String txt, String img) {
 		
 		ImageView imageview = (ImageView) findViewById(R.id.img_View);
-		downloader = new ImageDownloader(this, "/cache/lazyList", R.drawable.ic_launcher, false);
+		downloader = new ImageDownloader(this, "/cache/menurandom/png", R.drawable.ic_launcher, false);
 		//ImageView imageView = (ImageView) findViewById(R.id.img_View);
-		String url = "http://211.190.5.182/jpgdown/" + img + ".jpg";
+		String url = "http://211.190.5.182/jpgdown/png/" + img + ".png";
 		downloader.download(url, imageview);
 		
-		Toast toast = Toast.makeText(getApplicationContext(), img, 2);
+		Toast toast = Toast.makeText(this, img, 2);
 		toast.show();
 		
 		EditText editText = (EditText) findViewById(R.id.img_Txt);

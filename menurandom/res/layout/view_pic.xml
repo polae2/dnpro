@@ -24,7 +24,7 @@
 
 	    <EditText
 	        android:id="@+id/img_Txt"
-	        android:layout_width="105dp"
+	        android:layout_width="90dp"
 	        android:layout_height="50dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentRight="true"
