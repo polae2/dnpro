@@ -227,7 +227,7 @@ public class MenurandomActivity1 extends TabActivity implements OnClickListener,
 			layout1_1.setVisibility(View.GONE);
 			
 			LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view1_1_1 = inflater1.inflate(R.layout.view1_1_1, frameLayout1);
+			//View view1_1_1 = inflater1.inflate(R.layout.view1_1_1, frameLayout1);
 			//layout1_1 = (LinearLayout)findViewById(R.id.view1_1_1);
 			//layout1_1.setVisibility(View.VISIBLE);
 			
@@ -245,7 +245,7 @@ public class MenurandomActivity1 extends TabActivity implements OnClickListener,
 			layout1_1.setVisibility(View.GONE);
 			
 			LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view1_1_2 = inflater1.inflate(R.layout.view1_1_2, frameLayout1);
+			//View view1_1_2 = inflater1.inflate(R.layout.view1_1_2, frameLayout1);
 			//layout1_1 = (LinearLayout)findViewById(R.id.view1_1_1);
 			//layout1_1.setVisibility(View.VISIBLE);
 			
@@ -260,7 +260,7 @@ public class MenurandomActivity1 extends TabActivity implements OnClickListener,
 			layout1_1.setVisibility(View.GONE);
 			
 			LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view1_1_3 = inflater1.inflate(R.layout.view1_1_3, frameLayout1);
+			//View view1_1_3 = inflater1.inflate(R.layout.view1_1_3, frameLayout1);
 			//layout1_1 = (LinearLayout)findViewById(R.id.view1_1_1);
 			//layout1_1.setVisibility(View.VISIBLE);
 			
@@ -277,7 +277,7 @@ public class MenurandomActivity1 extends TabActivity implements OnClickListener,
 			layout1_1.setVisibility(View.GONE);
 			
 			LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view1_1_4 = inflater1.inflate(R.layout.view1_1_4, frameLayout1);
+			//View view1_1_4 = inflater1.inflate(R.layout.view1_1_4, frameLayout1);
 			//layout1_1 = (LinearLayout)findViewById(R.id.view1_1_1);
 			//layout1_1.setVisibility(View.VISIBLE);
 			
@@ -293,7 +293,7 @@ public class MenurandomActivity1 extends TabActivity implements OnClickListener,
 			layout1_1.setVisibility(View.GONE);
 			
 			LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view1_1_5 = inflater1.inflate(R.layout.view1_1_5, frameLayout1);
+			//View view1_1_5 = inflater1.inflate(R.layout.view1_1_5, frameLayout1);
 			//layout1_1 = (LinearLayout)findViewById(R.id.view1_1_1);
 			//layout1_1.setVisibility(View.VISIBLE);
 			
