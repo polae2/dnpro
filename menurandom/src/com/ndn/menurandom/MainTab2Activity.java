@@ -95,7 +95,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	private TextView anjuNameEditText;
 	private TextView siksaNameEditText;
 	private HashMap<String, String> map = new HashMap<String, String>();
-	private MenuSlideView mSlideView;
 	
 	
 	
