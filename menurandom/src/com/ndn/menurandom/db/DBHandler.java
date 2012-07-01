@@ -25,7 +25,7 @@ public class DBHandler {
    
         	helper.createDataBase();
    
-		  } catch (IOException ioe) {
+		  } catch (Exception ioe) {
 		   
 		    throw new Error("Unable to create database");
 		   
@@ -136,7 +136,7 @@ public class DBHandler {
 		sb.append("       where 1=1                                                	\n");
 		if(code != null)
 			sb.append("        and code in ('0','" + code + "')                    \n"); //0:식사/술안주, 1:식사, :2:술안주
-		if(detailCode != null)	
+		if(detailCode != null)
 			sb.append("        and detailCode = '" + detailCode + "'               \n");
 		sb.append("            and ( 1 = 0    \n"); // OR 조건을 넣기 위해서 넣어줌..
 		if(snow != null)	
@@ -148,9 +148,9 @@ public class DBHandler {
 		if(cold != null)	
 			sb.append("        or cold = '" + cold + "'                           \n");
 		sb.append("                )    \n");
-		sb.append("        								) r                        \n");			
+		sb.append("        								) r                        \n");
 		sb.append(" where c.rank = r.rdNumber      									\n");//-- random 값과 같은 로우 가져오기
-    					
+
  		cursor=db.rawQuery(sb.toString() ,null);    	
     	
  		Log.v("", sb.toString());
@@ -232,18 +232,18 @@ public class DBHandler {
     	
     	StringBuffer sb = new StringBuffer();
     	
-		sb.append(" select id,                \n");                                              
+		sb.append(" select id,                \n");
 		sb.append("    menuName,               \n");
 		sb.append("    pictureName               \n");
-		sb.append(" from menu                 \n");                                            
-		sb.append(" where 1=1                 \n");                                                 
+		sb.append(" from menu                 \n");
+		sb.append(" where 1=1                 \n");
 	if(code != null)
-		sb.append(" and code in ('0','" + code + "') \n"); //0:식사/술안주, 1:식사, :2:술안주                   
+		sb.append(" and code in ('0','" + code + "') \n"); //0:식사/술안주, 1:식사, :2:술안주
 	if(detailCode != null)
 		sb.append(" and detailCode = '" + detailCode + "'  \n");
-    					
- 		cursor=db.rawQuery(sb.toString() ,null);    	
-    	
+
+ 		cursor=db.rawQuery(sb.toString() ,null);
+
         return cursor;
     }
 }

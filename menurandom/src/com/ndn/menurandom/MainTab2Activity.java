@@ -68,11 +68,11 @@ public class MainTab2Activity extends Activity implements OnClickListener {
     
 	/////////////////////////////////////////////////////
 	// Weather Variable
-    private static final int NONE = 1;
-    private static final int SUNNY = NONE + 1;
-    private static final int CLOUDY = NONE + 2;
-    private static final int RAINY = NONE + 3;
-    private static final int SNOWY = NONE + 4;
+    public static final int NONE = 1;
+    public static final int SUNNY = NONE + 1;
+    public static final int CLOUDY = NONE + 2;
+    public static final int RAINY = NONE + 3;
+    public static final int SNOWY = NONE + 4;
     
     private int weather = NONE;
 	
@@ -294,7 +294,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void getRecommandMenu() {
-		menuData = new RecommandEngine(weather).getRecommandMenuData();
+		menuData = new RecommandEngine(this, weather).getRecommandMenuData();
 		drawMenu(menuData);
 	}
 	
