@@ -49,16 +49,13 @@ public class RecommandEngine {
 		case MainTab2Activity.CLOUDY:
 		case MainTab2Activity.RAINY:
 		case MainTab2Activity.SNOWY:
-			String query = "SELECT menuName, searchName, pictureName, hot_ment FROM menu WHERE hot ='1'";
-			cursor = mDB.rawQuery(query, null);
 			break;
 		}
-
-		String name = cursor.getString(cursor.getColumnIndex("menuName"));
-		String imgName = cursor.getString(cursor.getColumnIndex("pictureName"));
-		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
-		String explanation = cursor.getString(cursor.getColumnIndex("hot_ment"));
-	
+		String name = "감자수프";
+		String imgName = "img1.png";
+		String searchName = "스프";
+		String explanation = "하하하하";
+		
 		return new MenuData(name, imgName, searchName, explanation);
 	}
 }

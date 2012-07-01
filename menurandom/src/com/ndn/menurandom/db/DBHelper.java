@@ -91,7 +91,6 @@ public class DBHelper extends SQLiteOpenHelper {
 			// Open the database
 			String myPath = DB_PATH + DB_NAME;
 			myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-			
 		} catch(Exception e) {
 			Log.e("NHK", "Error occured to open database");
 		}
