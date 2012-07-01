@@ -89,7 +89,8 @@ public class RecommandEngine {
 		//int abc = Integer.parseInt(dtemp_String);
 		Toast toast = Toast.makeText(mContext, name, 2);
 		toast.show();
-
+		Toast toast2 = Toast.makeText(mContext, imgName, 2);
+		toast2.show();
 		
 		return new MenuData(name, imgName, searchName, explanation);
 	}
