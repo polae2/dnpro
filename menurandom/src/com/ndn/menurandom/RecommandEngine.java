@@ -2,6 +2,7 @@ package com.ndn.menurandom;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -51,6 +52,16 @@ public class RecommandEngine {
 		case MainTab2Activity.SNOWY:
 			break;
 		}
+		
+		Random random = new Random(System.nanoTime());
+		int r = random.nextInt();
+		String temp_String2 = String.valueOf(r);
+		String dtemp_String = temp_String2.substring(temp_String2
+				.length() - 1);
+		int abc = Integer.parseInt(dtemp_String);
+		
+		
+		
 		String name = "감자수프";
 		String imgName = "img1.png";
 		String searchName = "스프";
