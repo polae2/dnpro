@@ -49,7 +49,7 @@ public class RecommandEngine {
 		case MainTab2Activity.CLOUDY:
 		case MainTab2Activity.RAINY:
 		case MainTab2Activity.SNOWY:
-			String query = "SELECT menuName searchName pictureName hot_ment FROM menu WHERE hot = 1";
+			String query = "SELECT menuName, searchName, pictureName, hot_ment FROM menu WHERE hot ='1'";
 			cursor = mDB.rawQuery(query, null);
 			break;
 		}

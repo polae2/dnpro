@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
-	private static final String DB_PATH = "/data/data/com.ndn.menurandom/databases/dbmenu.db";
+	private static final String DB_PATH = "/data/data/com.ndn.menurandom/databases/";
 	private static final String DB_NAME = "dbmenu.db";
 	private static final int DATABASE_VERSION = 1;
 	private SQLiteDatabase myDataBase;
@@ -30,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		onCreate(db);
 	}
 
 	public void createDataBase() {
@@ -37,6 +38,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		// if db is not exist
 		if (!dbExist) {
+			
+			this.getReadableDatabase();
 			try {
 				copyDataBase();
 			} catch (IOException e) {
@@ -88,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			// Open the database
 			String myPath = DB_PATH + DB_NAME;
 			myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+			
 		} catch(Exception e) {
 			Log.e("NHK", "Error occured to open database");
 		}

@@ -63,10 +63,7 @@ public class DBHandler {
     	
     	String code = (String)itemMap.get("code");
     	String detailCode = (String)itemMap.get("detailCode");
-    	String snow = (String)itemMap.get("snow");
-    	String rain = (String)itemMap.get("rain");
     	String hot = (String)itemMap.get("hot");
-    	String cold = (String)itemMap.get("cold");
     	
     	Cursor cursor = null;
     	
@@ -77,10 +74,7 @@ public class DBHandler {
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
 		sb.append("        pictureName,                                             \n");
-		sb.append("        snow,                                                    \n");
-		sb.append("        rain,                                                    \n");
 		sb.append("        hot,                                                     \n");
-		sb.append("        cold,                                                    \n");
 		sb.append("        rank                                                     \n");
 		sb.append(" from                                                            \n");
 		sb.append("     (                                                           \n");
@@ -90,10 +84,7 @@ public class DBHandler {
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
 		sb.append("             a.pictureName,                                      \n");
-		sb.append("             a.snow,                                             \n");
-		sb.append("             a.rain,                                             \n");
 		sb.append("             a.hot,                                              \n");
-		sb.append("             a.cold,                                             \n");
 		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
 		sb.append("               where a.id <= b.id                                \n");
@@ -104,14 +95,8 @@ public class DBHandler {
 		
 		sb.append("                 and ( 1 = 0    \n"); // OR 조건을 넣기 위해서 넣어줌..
 		
-		if(snow != null) 			
-			sb.append("                 or b.snow = '" + snow + "'                \n");
-		if(rain != null) 			
-			sb.append("                 or b.rain = '" + rain + "'                \n");
 		if(hot != null) 			
 			sb.append("                 or b.hot = '" + hot + "'                  \n");
-		if(cold != null) 			
-			sb.append("                 or b.cold = '" + cold + "'                 \n");
 		sb.append("                     )    \n");
 		sb.append("                 		) 'rank'   								\n"); //--로우번호 구하기
 		sb.append("      from menu a                                                \n");
@@ -121,14 +106,8 @@ public class DBHandler {
 		if(detailCode != null)
 			sb.append("       and a.detailCode = '" + detailCode + "'              \n");
 		sb.append("           and ( 1 = 0    \n"); // OR 조건을 넣기 위해서 넣어줌..
-		if(snow != null)
-			sb.append("       or a.snow = '" + snow + "'                          \n");
-		if(rain != null)
-			sb.append("       or a.rain = '" + rain + "'                          \n");
 		if(hot != null)
 			sb.append("       or a.hot = '" + hot + "'                            \n");
-		if(cold != null)
-			sb.append("       or a.cold = '" + cold + "'                          \n");
 		sb.append("           )    \n");
 		sb.append("     )c,                                                         \n");
 		sb.append("     (select abs(random())% count(*) 'rdNumber'					\n");  //--random 값 구하기
@@ -139,14 +118,8 @@ public class DBHandler {
 		if(detailCode != null)
 			sb.append("        and detailCode = '" + detailCode + "'               \n");
 		sb.append("            and ( 1 = 0    \n"); // OR 조건을 넣기 위해서 넣어줌..
-		if(snow != null)	
-			sb.append("        or snow = '" + snow + "'                           \n");
-		if(rain != null)	
-			sb.append("        or rain = '" + rain + "'                           \n");
 		if(hot != null)	
 			sb.append("        or hot = '" + hot + "'                             \n");
-		if(cold != null)	
-			sb.append("        or cold = '" + cold + "'                           \n");
 		sb.append("                )    \n");
 		sb.append("        								) r                        \n");
 		sb.append(" where c.rank = r.rdNumber      									\n");//-- random 값과 같은 로우 가져오기
@@ -174,10 +147,7 @@ public class DBHandler {
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
 		sb.append("        pictureName,                                             \n");
-		sb.append("        snow,                                                    \n");
-		sb.append("        rain,                                                    \n");
 		sb.append("        hot,                                                     \n");
-		sb.append("        cold,                                                    \n");
 		sb.append("        rank                                                     \n");
 		sb.append(" from                                                            \n");
 		sb.append("     (                                                           \n");
@@ -187,10 +157,7 @@ public class DBHandler {
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
 		sb.append("             a.pictureName,                                      \n");
-		sb.append("             a.snow,                                             \n");
-		sb.append("             a.rain,                                             \n");
 		sb.append("             a.hot,                                              \n");
-		sb.append("             a.cold,                                             \n");
 		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
 		sb.append("               where a.id <= b.id                                \n");
@@ -214,7 +181,7 @@ public class DBHandler {
 			sb.append("        and code in ('0','" + code + "')                    \n"); //0:식사/술안주, 1:식사, :2:술안주
 		if(detailCode != null)	
 			sb.append("        and detailCode = '" + detailCode + "'               \n");
-		sb.append("        								) r                        \n");			
+		sb.append("        								) r                       \n");			
 		sb.append(" where c.rank = r.rdNumber      									\n");//-- random 값과 같은 로우 가져오기
     					
  		cursor=db.rawQuery(sb.toString() ,null);    	
