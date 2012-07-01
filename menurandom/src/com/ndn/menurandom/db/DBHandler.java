@@ -213,18 +213,7 @@ public class DBHandler {
 
         return cursor;
     }
-    
-    public Cursor getWeatherRandomList() throws SQLException{
-    	Cursor cursor = null;
-    	
-    	StringBuffer sb = new StringBuffer();
-    	
-    	sb.append("select id, menuName, pictureName, SearchName, explanation ");
-    	sb.append(" from menu ");
-    	sb.append(" where  hot='1'");
-    	
-    	cursor=db.rawQuery(sb.toString(), null);
-    	
-    	return cursor;
-    }
+   
+
+
 }
