@@ -75,6 +75,7 @@ public class MenuListAdapter extends BaseAdapter{
 		final String name = menuInfo.getName();
 		holder.name.setText(name);
 		final String pictureName = menuInfo.getPictureName();
+		final String searchName = menuInfo.getSearchName();
     
 		String url = "http://211.190.5.182/jpgdown/" + menuInfo.getPictureName() + ".jpg";
 		downloader.download(url, holder.image);
@@ -87,7 +88,7 @@ public class MenuListAdapter extends BaseAdapter{
 					//toast.show();
 					
 					
-					activity.moveShowPage(name, pictureName);
+					activity.moveShowPage(name, pictureName, searchName);
 					
 					//String str = mMenuInfos.get(position);
 					//int str2 = arSrc.get(pos).Icon;

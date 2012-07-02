@@ -74,6 +74,7 @@ public class DBHandler {
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
 		sb.append("        pictureName,                                             \n");
+		sb.append("        searchName,                                             \n");
 		sb.append("        hot,                                                     \n");
 		sb.append("        rank                                                     \n");
 		sb.append(" from                                                            \n");
@@ -84,6 +85,7 @@ public class DBHandler {
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
 		sb.append("             a.pictureName,                                      \n");
+		sb.append("             a.searchName,                                       \n");
 		sb.append("             a.hot,                                              \n");
 		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
@@ -147,6 +149,7 @@ public class DBHandler {
 		sb.append("        detailCode,                                              \n");
 		sb.append("        menuName,                                                \n");
 		sb.append("        pictureName,                                             \n");
+		sb.append("        searchName,                                             \n");
 		sb.append("        hot,                                                     \n");
 		sb.append("        rank                                                     \n");
 		sb.append(" from                                                            \n");
@@ -157,6 +160,7 @@ public class DBHandler {
 		sb.append("             a.detailCode,                                       \n");
 		sb.append("             a.menuName,                                         \n");
 		sb.append("             a.pictureName,                                      \n");
+		sb.append("             a.searchName,                                       \n");
 		sb.append("             a.hot,                                              \n");
 		sb.append(" 	    (select count(b.id)	                                    \n");
 		sb.append("                from menu b                                      \n");
@@ -201,6 +205,7 @@ public class DBHandler {
     	
 		sb.append(" select id,                \n");
 		sb.append("    menuName,               \n");
+		sb.append("        searchName,          \n");
 		sb.append("    pictureName               \n");
 		sb.append(" from menu                 \n");
 		sb.append(" where 1=1                 \n");

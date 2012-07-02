@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.ndn.example.LazyAdapter.ViewHolder;
-import com.ndn.menurandom.data.MenuInfo;
-import com.ndn.menurandom.db.DBHandler;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,12 +16,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.ndn.menurandom.data.MenuInfo;
+import com.ndn.menurandom.db.DBHandler;
+import com.ndn.menurandom.search.SearchMapActivity;
 
 
 public class MainTab1Activity extends Activity implements OnClickListener, SensorEventListener {
@@ -38,13 +41,13 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 //***************************************************
 // 내용 : 버튼 선택시 처리 변수
 //***************************************************
-	private static Integer FIRST_BUTTON = 1;
-	private static Integer SECOND_BUTTON = 2;
-	private static Integer KOREA = 3;
-	private static Integer CHINA = 4;
-	private static Integer JAPAN = 5;
-	private static Integer AMERICA = 6;
-	private static Integer OTHER = 7;
+	private static final Integer FIRST_BUTTON = 1;
+	private static final Integer SECOND_BUTTON = 2;
+	private static final Integer KOREA = 3;
+	private static final Integer CHINA = 4;
+	private static final Integer JAPAN = 5;
+	private static final Integer AMERICA = 6;
+	private static final Integer OTHER = 7;
 //*********************** 끝 *************************
 	
 
@@ -52,12 +55,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 내용 : 어떤 뷰를 선택했는지에 대한 상태 함수 관련 변수
 //***************************************************
 	private String currentState = STATE_FIRST;
-	private static String STATE_FIRST = "0";
-	private static String STATE_SECOND = "1";
-	private static String STATE_THIRD = "2";
-	private static String STATE_FOURTH = "3";
-	private static String STATE_DRINK = "4";
-	private static String STATE_DRINK_LIST = "5";
+	private static final String STATE_FIRST = "0";
+	private static final String STATE_SECOND = "1";
+	private static final String STATE_THIRD = "2";
+	private static final String STATE_FOURTH = "3";
+	private static final String STATE_DRINK = "4";
+	private static final String STATE_DRINK_LIST = "5";
 //*********************** 끝 *************************
 	
 	
@@ -66,17 +69,18 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 //***************************************************
 	private String currentThird_View = T_View1;
 	private String currentFourth_View = F_View1;
-	private static String F_View0 = "0";
-	private static String F_View1 = "1";
-	private static String F_View2 = "2";
-	private static String F_View3 = "3";
-	private static String F_View4 = "4";
-	private static String F_View5 = "5";
-	private static String T_View1 = "1";
-	private static String T_View2 = "2";
-	private static String T_View3 = "3";
-	private static String T_View4 = "4";
-	private static String T_View5 = "5";
+	private static final String F_View0 = "0";
+	private static final String F_View1 = "1";
+	private static final String F_View2 = "2";
+	private static final String F_View3 = "3";
+	private static final String F_View4 = "4";
+	private static final String F_View5 = "5";
+	private static final String T_View1 = "1";
+	private static final String T_View2 = "2";
+	private static final String T_View3 = "3";
+	private static final String T_View4 = "4";
+	private static final String T_View5 = "5";
+	private static final String SEARCH_BUTTON = "99";
 //*********************** 끝 *************************
 	
 	
@@ -121,6 +125,13 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	private View view1_1_5;
 	private View view_pic;
 //*********************** 끝 *************************
+
+	
+//***************************************************
+// 내용 : 검색 관련 변수
+//***************************************************
+	private String searchName;
+//*********************** 끝 *************************	
 
 	private ImageDownloader downloader;
 	
@@ -615,6 +626,16 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	        
 			Array_Other();
 		}
+		if(v.getTag()==SEARCH_BUTTON){
+			
+//			currentState = ???
+			
+			// 검색 페이지로 넘기기 
+			Intent intent = new Intent(this, SearchMapActivity.class);
+			intent.putExtra("search_menu", searchName);
+			startActivity(intent);
+					
+		}		
 	}
 //******************************* 끝 *************************************
 
@@ -897,17 +918,15 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		Cursor cursor = dbhandler.randomSelect(itemMap);
 		startManagingCursor(cursor);
 		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
-		String result = cursor.getString(cursor
-				.getColumnIndex("menuName"));
-		String result2 = cursor.getString(cursor
-				.getColumnIndex("pictureName"));
+		String result = cursor.getString(cursor.getColumnIndex("menuName"));
+		String result2 = cursor.getString(cursor.getColumnIndex("pictureName"));
+		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
 		dbhandler.close();
-		moveShowPage(result,result2);
+		moveShowPage(result,result2,searchName);
 
 		currentState = state;
-		if(f_view!=""){
+		if(f_view!="")
 			currentFourth_View = f_view;
-		}
 	}
 //******************************* 끝 *************************************	
 	
@@ -922,9 +941,9 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
         startManagingCursor(cursor);
         
 		
-	   //데이터를 만듬(ac220v)
-	   ArrayList<MenuInfo> menuInfoList = new ArrayList<MenuInfo>();
-       MenuInfo mi;
+        //데이터를 만듬(ac220v)
+        ArrayList<MenuInfo> menuInfoList = new ArrayList<MenuInfo>();
+        MenuInfo mi;
         
         if (cursor.moveToFirst()) {
             do {
@@ -933,6 +952,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
             	mi.setId(cursor.getString(cursor.getColumnIndex("id")));
             	mi.setName(cursor.getString(cursor.getColumnIndex("menuName")));
 	            mi.setPictureName(cursor.getString(cursor.getColumnIndex("pictureName")));
+	            mi.setSearchName(cursor.getString(cursor.getColumnIndex("searchName")));
 	            menuInfoList.add(mi);
 	            
 //	            	Field field = R.drawable.class.getField("ic_tab_artists_grey");
@@ -955,7 +975,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	/*
 	 * 메뉴 소개 페이지로 이동!
 	 */
-	protected void moveShowPage(String txt, String img) {
+	protected void moveShowPage(String txt, String img, String search_Name) {
 		
 		ImageView imageview = (ImageView) findViewById(R.id.img_View);
 		downloader = new ImageDownloader(this, "/cache/menurandom/png", R.drawable.ic_launcher, false);
@@ -969,6 +989,14 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		EditText editText = (EditText) findViewById(R.id.img_Txt);
 		editText.setText(txt);
 		setViewAsVisible(view_pic);
+		if(search_Name==""){
+			
+		}else{
+			this.searchName = search_Name;
+		}
+		Button button = (Button) findViewById(R.id.btn_Search);
+		button.setTag(SEARCH_BUTTON);
+		button.setOnClickListener(this);
 	}
 	
 		

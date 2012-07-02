@@ -179,6 +179,7 @@ public class MenuInfo {
 	private String detailCode;
 	private String name;
 	private String pictureName;
+	private String searchName;
 	
 	
 	
@@ -218,6 +219,13 @@ public class MenuInfo {
 	public void setPictureName(String pictureName) {
 		this.pictureName = pictureName;
 	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}	
+	
 	
 }
 
