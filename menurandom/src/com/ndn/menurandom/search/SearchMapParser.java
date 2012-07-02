@@ -57,7 +57,7 @@ public class SearchMapParser {
 	// query 에 입력받은 검색어로 검색을 하여 nHowMany 만큼 검색 결과값을 restaurantData에 저장해서
 	// 검색 결과 값이 몇개인지 int 로 return 해준다.
 	public int search(RestaurantData[] restaurantData, String query, int nHowMany, int nStart) {
-		boolean inTitle = false, inAddress = false, inMapx = false, inMapy = false;
+		boolean inTitle = false, inAddress = false, inMapx = false, inMapy = false, inTel = false;
 		int indexCount = 0;
 
 		try {
@@ -87,6 +87,7 @@ public class SearchMapParser {
 				switch (parserEvent) {
 				case XmlPullParser.START_TAG:
 					if (parser.getName().equals("title")) {	inTitle = true;	}
+					if (parser.getName().equals("telephone")) { inTel = true; }
 					if (parser.getName().equals("address")) { inAddress = true;	}
 					if (parser.getName().equals("mapx")) { inMapx = true; }
 					if (parser.getName().equals("mapy")) { inMapy = true; }
@@ -97,6 +98,10 @@ public class SearchMapParser {
 					if (inTitle) { 
 						restaurantData[indexCount].sTitle = filter(parser.getText());
 						inTitle = false;
+					}
+					if (inTel) { 
+						restaurantData[indexCount].sTel = filter(parser.getText());
+						inTel = false;
 					}
 					if (inAddress) {
 						restaurantData[indexCount].sAddress = addressFilter(parser.getText());
