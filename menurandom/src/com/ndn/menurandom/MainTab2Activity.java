@@ -73,12 +73,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	
 	
-	private TextView anjuTextView = null;
-	private TextView siksaTextView = null;
-	private View anjuButton;
-	private View siksaButton;
-	private TextView anjuNameEditText;
-	private TextView siksaNameEditText;
+
 	private HashMap<String, String> map = new HashMap<String, String>();
 	
 	
