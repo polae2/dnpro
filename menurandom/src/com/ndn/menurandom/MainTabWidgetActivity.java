@@ -62,11 +62,9 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 	     if(tabId.equals("Random")) {
 	         tw.getChildAt(0).setBackgroundResource(R.drawable.ic_tab1);
 	         tw.getChildAt(1).setBackgroundResource(R.drawable.ic_tab2);
-	         tw.getChildAt(2).setBackgroundResource(R.drawable.ic_tab2);
 	     } else if(tabId.equals("Recommended")) {
 	         tw.getChildAt(0).setBackgroundResource(R.drawable.ic_tab2);
 	         tw.getChildAt(1).setBackgroundResource(R.drawable.ic_tab1);
-	         tw.getChildAt(2).setBackgroundResource(R.drawable.ic_tab2);
 	     }
      }
 }
