@@ -46,6 +46,7 @@ import com.ndn.menurandom.search.SearchMapActivity;
 public class MainTab2Activity extends Activity implements OnClickListener {
 	private String currentState = STATE_FIRST;
 	private static String STATE_FIRST = "0";
+	private ImageDownloader downloader;
 	
 	/////////////////////////////////////////////////////
 	// Back button variable
@@ -169,8 +170,15 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	
 	private void drawMenu(MenuData menuData) {
-		ImageView image = (ImageView) findViewById(R.id.menu_image);
-		image.setImageResource(R.drawable.img1);
+		
+		ImageView imageview = (ImageView) findViewById(R.id.menu_image);
+		downloader = new ImageDownloader(this, "/cache/menurandom/png", R.drawable.ic_launcher, false);
+		//ImageView imageView = (ImageView) findViewById(R.id.img_View);
+		String url = "http://211.190.5.182/jpgdown/" + menuData.imgName + ".jpg";
+		downloader.download(url, imageview);
+		
+//		ImageView image = (ImageView) findViewById(R.id.menu_image);
+//		image.setImageResource(R.drawable.img1);
 
 		TextView text = (TextView) findViewById(R.id.menu_explanation);
 		text.setText(menuData.explanation);
