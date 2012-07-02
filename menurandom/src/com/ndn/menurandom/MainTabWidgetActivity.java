@@ -18,7 +18,6 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
 
 		Resources res = getResources(); // Resource object to get Drawables
 		tabHost = getTabHost(); // The activity TabHost
@@ -43,13 +42,7 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 				.setContent(intent);
 		tabHost.addTab(spec);
 
-//		intent = new Intent().setClass(this, MainTab3Activity.class);
-		spec = tabHost
-				.newTabSpec("Map")
-				.setIndicator("주변검색", res.getDrawable(R.drawable.ic_tab3_state))
-				.setContent(intent);
-		tabHost.addTab(spec);
-
+		
 		tabHost.setOnTabChangedListener(this);
 
 		tabHost.setCurrentTab(0);
@@ -61,9 +54,6 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 			tv.setTextColor(Color.rgb(0, 0, 0));
 			
 	    }
-				
-				
-				//TextView tv = (TextView) tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
 	}
 
 	public void onTabChanged(String tabId) {
@@ -77,10 +67,6 @@ public class MainTabWidgetActivity extends TabActivity implements OnTabChangeLis
 	         tw.getChildAt(0).setBackgroundResource(R.drawable.ic_tab2);
 	         tw.getChildAt(1).setBackgroundResource(R.drawable.ic_tab1);
 	         tw.getChildAt(2).setBackgroundResource(R.drawable.ic_tab2);
-	     } else if(tabId.equals("Map")) {
-	         tw.getChildAt(0).setBackgroundResource(R.drawable.ic_tab2);
-	         tw.getChildAt(1).setBackgroundResource(R.drawable.ic_tab2);
-	         tw.getChildAt(2).setBackgroundResource(R.drawable.ic_tab1);
 	     }
-	}
+     }
 }
