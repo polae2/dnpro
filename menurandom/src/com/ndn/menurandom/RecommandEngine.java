@@ -66,7 +66,7 @@ public class RecommandEngine {
 		String result = cursor1.getString(cursor1.getColumnIndex("cnt"));
 		
 		int temp_random_cnt = Integer.parseInt(result);
-		int temp_random = r % temp_random_cnt;
+		int temp_random = Math.abs(r) % temp_random_cnt;
 		
 		Cursor cursor2 = getWeatherRandomList();
 		int cnt = 0;
