@@ -10,10 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.SlidingDrawer;
-import android.widget.SlidingDrawer.OnDrawerCloseListener;
-import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +32,7 @@ import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
 public class SearchMapActivity extends NMapActivity {
-	private static final boolean DEBUG_MODE = true;
+	private static final boolean DEBUG_MODE = false;
 	// set my API key which is registered for com.ndn.menurandom package
 	private static final String NAVER_MAP_KEY = "749a7f89c8934b5d50a24f3a9ca8af01";
 	private String SEARCH_MENU;
@@ -87,9 +84,6 @@ public class SearchMapActivity extends NMapActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		Log.e("NHK", "========================================================================================");
-		Log.e("NHK", "onCreate!");
 /*		BACKBTNCURRENT = BACKBTN_NOTCOMPLEAT;*/
 		// retrieve menu value
 		Intent intent = getIntent();
@@ -110,19 +104,23 @@ public class SearchMapActivity extends NMapActivity {
 	
 	protected void onStart() {
 		super.onStart();
-		Log.e("NHK", "onStart!");
 	
 		startMyLocation();
 	}
 
 	protected void onResume() {
 		super.onResume();
-		Log.e("NHK", "onResume!");
 		restoreInstanceState();
 	}
 	
+	protected void onStop() {
+		super.onStop();
+		
+		if(mMyGeoPoint == null)
+			stopMyLocation();
+	}
+	
 	protected void onDestroy() {
-		Log.e("NHK", "onDestroy");
 		// save map view state such as map center position and zoom level.
 		saveInstanceState();
 
@@ -251,7 +249,7 @@ public class SearchMapActivity extends NMapActivity {
 		NMapPOIdata poiData = new NMapPOIdata(searchedRestaurantIndex, mMapViewerResourceProvider);
 		poiData.beginPOIdata(searchedRestaurantIndex);
 		for(int i=0; i<searchedRestaurantIndex; i++)
-			poiData.addPOIitem(Double.parseDouble(restaurantData[i].sMapX), Double.parseDouble(restaurantData[i].sMapY), restaurantData[i].sTitle, markerId, 0);
+			poiData.addPOIitem(Double.parseDouble(restaurantData[i].sMapX), Double.parseDouble(restaurantData[i].sMapY), restaurantData[i].sTitle, markerId, i);
 		poiData.endPOIdata();
 
 		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
@@ -260,7 +258,8 @@ public class SearchMapActivity extends NMapActivity {
 	}
 	
 	private void searchRestaurant() {
-		Log.d("NHK", "start searching near Restaurants");
+		if (DEBUG_MODE)
+			Log.d("NHK", "start searching near Restaurants");
 				
 		searchedRestaurantIndex = mSearchMapParser.search(restaurantData, currentAddress+" "+SEARCH_MENU, SEARCH_INDEX, 1);
 		
@@ -274,7 +273,7 @@ public class SearchMapActivity extends NMapActivity {
 				Log.d("NHK", "Naver search key: " + currentAddress+" "+SEARCH_MENU);
 
 			textView.setTextSize(20);
-			textView.setText("검색값이 없으면 여기에 없다고 표시가 나와야 \n 하이하이");			
+			textView.setText("근처에 검색된 음식점이 없습니다!");
 			mMapController.setMapCenter(mMyGeoPoint, 10);
 
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -309,7 +308,10 @@ public class SearchMapActivity extends NMapActivity {
 						// skip selected item
 						if (poiItem == overlayItem) {
 							
-							
+							textView.setTextSize(20);
+							int id = poiItem.getId();
+//							textView.setTextColor(Color.parseColor("#F5BB4E"));
+							textView.setText("'"+restaurantData[id].sTitle+"'\n*전화: "+restaurantData[id].sTel+"\n*위치: "+restaurantData[id].sAddress);
 							
 							continue;
 						}
@@ -423,7 +425,6 @@ public class SearchMapActivity extends NMapActivity {
 						sizeSpecHeight = sizeSpecWidth;
 					}
 				}
-
 				view.measure(sizeSpecWidth, sizeSpecHeight);
 			}
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);

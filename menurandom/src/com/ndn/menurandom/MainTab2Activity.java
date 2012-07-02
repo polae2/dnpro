@@ -1,34 +1,18 @@
 package com.ndn.menurandom;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,18 +90,18 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		initView();
 	}
 	
-	protected void onStart() {Log.e("NHK", "onStart");
+	protected void onStart() {
 		super.onStart();
 //		findMyLocation();
 		getWeatherInformation();
 		getRecommandMenu();
 	}
 	
-	protected void onResume() {Log.e("NHK", "onResume");
+	protected void onResume() {
 		super.onResume();
 	}
 	
-	protected void onStop() {Log.e("NHK", "onStop");
+	protected void onStop() {
 //		stopSearching();
 		
 		super.onStop();
@@ -319,50 +303,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	}
 	*/
 	
-//	public void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.main);
-//		
-//		//checkGps();//GPS 상태체크 //일단 보류 
-//		
-//		LinearLayout frameLayout = (LinearLayout) findViewById(R.id.tab2);
-//
-//		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//		View view2 = inflater.inflate(R.layout.tab_2, null);
-//		frameLayout.addView(view2);
-//		
-//		
-//		anjuTextView = (TextView) findViewById(R.id.anjuTextView);
-//		siksaTextView = (TextView) findViewById(R.id.siksaTextView);
-//		
-//		anjuNameEditText = (TextView) findViewById(R.id.anjuNameEditText);
-//		siksaNameEditText = (TextView) findViewById(R.id.siksaNameEditText);
-//		
-//		anjuButton = findViewById(R.id.anjuButton);
-//		siksaButton = findViewById(R.id.siksaButton);
-//		
-//		anjuButton.setOnClickListener(this);
-//		siksaButton.setOnClickListener(this);
-//		
-//		//layout = (LinearLayout)findViewById(R.id.tLayout);
-//		
-//		loadKmaXmlRead();//기상청 xml 파싱
-//		
-//		recommendedAnjuMenu();//안주메뉴추천
-//		recommendedSiksaMenu();//안주메뉴추천
-//		
-//		/*
-//		ArrayList arItem = getArrayList("1", "K");;
-//        //어댑터를 만듬
-//        MyListAdapter MyAdapter = new MyListAdapter(this, R.layout.mylist, arItem);
-//       
-//        ListView MyList = (ListView)findViewById(R.id.list);
-//        //어댑터와 데이터를 연결해서 원하는 리스트뷰에 뿌리게됨
-//        MyList.setAdapter(MyAdapter);
-//        */
-//		mSlideView= (MenuSlideView)findViewById(R.id.menu_slide);
-//	}
-
 	/*
 	 * 추천 메뉴를 조회식 검색조건 만들어서 Map으로 넘겨줌
 	 */

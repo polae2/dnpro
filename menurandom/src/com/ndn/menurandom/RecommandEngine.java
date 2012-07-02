@@ -45,7 +45,6 @@ public class RecommandEngine {
 	}
 	
 	public MenuData getRecommandMenuData() {
-		Cursor cursor = null;
 		String name = null;
 		String imgName = null;;
 		String searchName = null;;
@@ -86,14 +85,10 @@ public class RecommandEngine {
 		//String dtemp_String = temp_String2.substring(temp_String2
 		//		.length() - 1);
 		//int abc = Integer.parseInt(dtemp_String);
-		Toast toast = Toast.makeText(mContext, name, 2);
-		toast.show();
-		Toast toast2 = Toast.makeText(mContext, imgName, 2);
-		toast2.show();
 		
 		return new MenuData(name, imgName, searchName, explanation);
 	}
-	
+		
 	
     public Cursor getWheatherCount() throws SQLException{
     	Cursor cursor = null;

@@ -99,7 +99,7 @@ public class SearchMapParser {
 						inTitle = false;
 					}
 					if (inAddress) {
-						restaurantData[indexCount].sAddress = parser.getText();
+						restaurantData[indexCount].sAddress = addressFilter(parser.getText());
 						inAddress = false;
 					}
 					if (inMapx) {
@@ -136,5 +136,11 @@ public class SearchMapParser {
 		str = str.replace("<b>", "");
 		str = str.replace("</b>", "");
 		return str;
+	}
+	
+	// convert address ex) "Seoul Korea" --> "Korea"
+	private String addressFilter(String str) {
+		int n = str.indexOf(" ");
+		return str.substring(++n);
 	}
 }
