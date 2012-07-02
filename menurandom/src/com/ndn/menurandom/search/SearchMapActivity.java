@@ -268,6 +268,8 @@ public class SearchMapActivity extends NMapActivity {
 		
 		if (searchedRestaurantIndex != 0) {
 			displayRestaurantItem();
+			textView.setTextSize(24);
+			textView.setText("음식점을 클릭 해주세요!");
 		} else if (searchedRestaurantIndex == 0){
 			if(DEBUG_MODE)
 				Log.d("NHK", "Naver search key: " + currentAddress+" "+SEARCH_MENU);
