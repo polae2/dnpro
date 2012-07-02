@@ -28,26 +28,41 @@
 	        android:layout_height="50dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentRight="true"
-	        android:layout_marginTop="100dp"
-	        android:layout_marginRight="5dp"
+	        android:layout_marginTop="65dp"
+	        android:layout_marginRight="15dp"
 	        android:background="#00000000"
 	        android:enabled="false" 
 	        
 	        
 	        />
-
 	    <ImageView
 	        android:id="@+id/img_View"
-	        android:layout_width="160dp"
-	        android:layout_height="160dp"
+	        android:layout_width="150dp"
+	        android:layout_height="150dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
-	        android:layout_marginTop="110dp"
+	        android:layout_marginTop="90dp"
 	        android:layout_marginLeft="48dp"
 	        android:src="@drawable/bg_speech"
 	        android:background="#00000000"
 	        android:scaleType="fitXY"
 	         />
+	    
+		<ImageView
+		    android:id="@+id/readinggress"
+	        android:layout_width="250dp"
+	        android:layout_height="280dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginTop="55dp"
+	        android:layout_marginLeft="20dp"
+	        android:src="@drawable/readinggress"
+	        
+	        android:background="#00000000"
+	        android:scaleType="fitXY"
+	         />
+		
+
 	</RelativeLayout>
 
 </LinearLayout>
