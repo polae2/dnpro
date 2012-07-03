@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="400dp"
-    android:background="@drawable/page4"
+    android:background="@drawable/page4_1"
     android:orientation="vertical">
 	
     <RelativeLayout
@@ -40,12 +40,12 @@
         
         <ImageView
 	        android:id = "@+id/weatherImage"
-	        android:layout_width="80dp"
-	        android:layout_height="80dp"
+	        android:layout_width="70dp"
+	        android:layout_height="70dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentRight="true"
-	        android:layout_marginTop="55dp"
-	        android:layout_marginRight="27dp"
+	        android:layout_marginTop="58dp"
+	        android:layout_marginRight="32dp"
 	        android:background="#00000000"
 	        android:scaleType="fitXY"
 	         />
