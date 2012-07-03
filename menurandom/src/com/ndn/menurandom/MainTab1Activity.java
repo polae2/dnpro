@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import android.widget.Toast;
 import com.ndn.menurandom.data.MenuInfo;
 import com.ndn.menurandom.db.DBHandler;
 import com.ndn.menurandom.search.SearchMapActivity;
-
+import com.ndn.diceView.*;
 
 public class MainTab1Activity extends Activity implements OnClickListener, SensorEventListener {
     /** Called when the activity is first created. */
@@ -37,7 +38,8 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발일시 : 12. 06. 14
 // 개발내용 : 변수선언부
 //************************************************************************
-
+    private DiceImageView mDiceImageView;
+    
 //***************************************************
 // 내용 : 버튼 선택시 처리 변수
 //***************************************************
@@ -136,7 +138,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	private ImageDownloader downloader;
 	
 	
+//***************************************************
+// 내용 : DICE추가  변수
+//***************************************************
 	
+	
+//*********************** 끝 *************************
 //******************************* 끝 *************************************
 	
 	
@@ -151,14 +158,14 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
-
+    	
 //***************************************************
 // 내용 : 센서부 호출
 //***************************************************
         sensor_Initialize();
 //*********************** 끝 *************************
         //setSelectTab(0);
-
+        mDiceImageView = new DiceImageView(this);
 //***************************************************
 // 내용 : 각 뷰 전체를 호출함(처음 보여줄 뷰를 제외한 나머지 뷰 숨김)
 //***************************************************
@@ -768,7 +775,13 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
         super.onResume();
         operateShaking();
     }
-
+	public void onPause() {
+		super.onPause();
+		
+		this.sensorManager.unregisterListener(this);
+	}
+	
+	
 	private void operateShaking()
 	{
 		List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER)  ; //
@@ -818,7 +831,8 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
 
 			if (speed > SHAKE_THRESHOLD) {
-				
+					mDiceImageView.startThread();
+
 				//if(!isShaked)
 				//{
 					
