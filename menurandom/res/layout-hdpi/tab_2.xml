@@ -9,67 +9,75 @@
         android:id = "@+id/upperlayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-		
-	    <ImageView
-	        android:layout_alignParentTop="true"
-	        android:src="@drawable/recommend"
-	        android:layout_width="140dp"
-	        android:layout_height="80dp"
-	        android:paddingTop = "10dp"/>
 	    	
-	    <ImageView
-	        android:id = "@+id/weatherImage"
-	        android:layout_alignParentRight="true"
-	        android:layout_width="80dp"
-	        android:layout_height="80dp"
-	        android:paddingTop="10dp"
-	        android:paddingRight="10dp"/>
+
         
-	    <ImageView
-	        android:id="@+id/img_View"
-	        android:layout_width="150dp"
-	        android:layout_height="150dp"
+        <ImageView
+			android:id="@+id/weatherfood_view"
+	        android:layout_width="170dp"
+	        android:layout_height="170dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginTop="90dp"
-	        android:layout_marginLeft="48dp"
-	        android:src="@drawable/bg_speech"
+	        android:layout_marginLeft="43dp"
 	        android:background="#00000000"
 	        android:scaleType="fitXY"
-	         />
-	    
-		<ImageView
+	      	android:src="@drawable/bg_speech"
+	        />
+        
+        <ImageView
 		    android:id="@+id/readinggress"
-	        android:layout_width="250dp"
-	        android:layout_height="280dp"
+	        android:layout_width="280dp"
+	        android:layout_height="300dp"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
-	        android:layout_marginTop="55dp"
+	        android:layout_marginTop="45dp"
 	        android:layout_marginLeft="20dp"
 	        android:src="@drawable/readinggress"
-	        
 	        android:background="#00000000"
 	        android:scaleType="fitXY"
 	         />
-
+        
+        <ImageView
+	        android:id = "@+id/weatherImage"
+	        android:layout_width="80dp"
+	        android:layout_height="80dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginTop="55dp"
+	        android:layout_marginRight="27dp"
+	        android:background="#00000000"
+	        android:scaleType="fitXY"
+	         />
+        
         <TextView
             android:id = "@+id/menu_explanation"
-            android:layout_width = "360dp"
+            android:layout_width = "280dp"
             android:layout_height = "wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize = "20sp"/>
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="60dp"
+	        android:layout_marginRight="20dp"
+            android:textSize = "18sp"/>
         
 		<Button 
 		    android:id = "@+id/btn_othermenu"
-		    android:layout_width = "wrap_content"
-		    android:layout_height = "wrap_content"
-			
+	        android:layout_width="110dp"
+	        android:layout_height="40dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginRight="20dp"
 		    android:text="Other Menu"/>
 		
 		<Button 
 		    android:id = "@+id/btn_search"
-		    android:layout_width = "wrap_content"
-		    android:layout_height = "wrap_content"
+	        android:layout_width="110dp"
+	        android:layout_height="40dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginRight="140dp"
 		    android:text="Search"/>
       </RelativeLayout>  
     

@@ -45,7 +45,6 @@
 	        android:layout_marginTop="45dp"
 	        android:layout_marginLeft="20dp"
 	        android:src="@drawable/readinggress"
-	        
 	        android:background="#00000000"
 	        android:scaleType="fitXY"
 	         />

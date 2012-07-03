@@ -150,7 +150,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	
 	private void drawMenu(MenuData menuData) {
 		
-		ImageView imageview = (ImageView) findViewById(R.id.menu_image);
+		ImageView imageview = (ImageView) findViewById(R.id.weatherfood_view);
 		downloader = new ImageDownloader(this, "/cache/menurandom/png", R.drawable.ic_launcher, false);
 		//ImageView imageView = (ImageView) findViewById(R.id.img_View);
 		String url = "http://211.190.5.182/jpgdown/" + menuData.imgName + ".jpg";
