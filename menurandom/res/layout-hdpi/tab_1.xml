@@ -13,24 +13,24 @@
         <ImageButton
             android:id="@+id/ImgBtn1_1"
             android:src="@drawable/sik"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="85dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="30dp"
             android:scaleType="fitXY"
             android:background="#00000000" />
 
         <ImageButton
             android:id="@+id/ImgBtn1_2"
             android:src="@drawable/sul"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="34dp"
-            android:layout_marginTop="85dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="60dp"
             android:scaleType="fitXY"
             android:background="#00000000" />
 

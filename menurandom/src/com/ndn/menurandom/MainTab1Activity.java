@@ -890,13 +890,13 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 							
 						}
 	
-						Toast toast = Toast.makeText(this, "세번째 페이지", 2);
-						toast.show();
+						//Toast toast = Toast.makeText(this, "세번째 페이지", 2);
+						//toast.show();
 	
 					} 
 					else if (currentState == STATE_DRINK_LIST) {
-						Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
-						toast.show();
+						//Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
+						//toast.show();
 	
 						select_food("2", "", STATE_DRINK, "");
 	
@@ -1021,7 +1021,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		Button button = (Button) findViewById(R.id.btn_Search);
 		button.setTag(SEARCH_BUTTON);
 		button.setOnClickListener(this);
-		
+		//currentState = STATE_FOURTH;
 		vibrator.vibrate(millisecOn);
 		//vibrator.vibrate(pattern, time);
 		//vibrator.cancel();
