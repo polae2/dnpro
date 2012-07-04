@@ -12,6 +12,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,12 +66,6 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	/////////////////////////////////////////////////////
 	// Menu Variable	
 	private MenuData menuData;
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -180,7 +176,13 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.btn_search:
-			searchMap();
+			ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+			
+			if (networkInfo == null)
+				Toast.makeText(this, "네트워크 연결이 안되어 있습니다.", Toast.LENGTH_LONG).show();
+			else
+				searchMap();
 			break;
 		}
 	}
@@ -214,6 +216,9 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	*/
 	
 	private void getWeatherInformation() {
+		if (!checkNetwork())
+			return;
+		
 		boolean weather = false;
 		String weatherData=null;
 
@@ -289,6 +294,16 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 		Intent intent = new Intent(this, SearchMapActivity.class);
 		intent.putExtra("search_menu", menuData.searchName);
 		startActivity(intent);
+	}
+	
+	private boolean checkNetwork() {
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+		
+		if (networkInfo == null)
+			return false;
+		else
+			return true;
 	}
 
 	/*

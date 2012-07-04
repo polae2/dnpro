@@ -647,7 +647,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 			
 			if (networkInfo == null)
-				Toast.makeText(this, "네트워크 연결이 안되어 있습니다.", Toast.LENGTH_LONG);
+				Toast.makeText(this, "네트워크 연결이 안되어 있습니다.", Toast.LENGTH_LONG).show();
 			else {
 				// 검색 페이지로 넘기기 
 				Intent intent = new Intent(this, SearchMapActivity.class);
