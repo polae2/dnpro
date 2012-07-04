@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -37,10 +39,6 @@ public class SearchMapActivity extends NMapActivity {
 	private static final String NAVER_MAP_KEY = "749a7f89c8934b5d50a24f3a9ca8af01";
 	private String SEARCH_MENU;
 	private static final int SEARCH_INDEX = 3;
-	
-	/*	private String BACKBTNCURRENT = BACKBTN_NOTCOMPLEAT;
-	private static String BACKBTN_NOTCOMPLEAT = "0";	
-	private static String BACKBTN_COMPLEAT = "1";*/
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Essential Variables
@@ -84,7 +82,17 @@ public class SearchMapActivity extends NMapActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-/*		BACKBTNCURRENT = BACKBTN_NOTCOMPLEAT;*/
+		
+		// check network
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+		
+		if (networkInfo == null) {
+			if(DEBUG_MODE)
+				Log.e("NHK", "Network is not available");
+			finish();
+		}
+		
 		// retrieve menu value
 		Intent intent = getIntent();
         if( intent.hasExtra("search_menu"))

@@ -13,8 +13,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -639,11 +642,18 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			
 //			currentState = ???
 			
-			// 검색 페이지로 넘기기 
-			Intent intent = new Intent(this, SearchMapActivity.class);
-			intent.putExtra("search_menu", searchName);
-			startActivity(intent);
-					
+			// check network
+			ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+			
+			if (networkInfo == null)
+				Toast.makeText(this, "네트워크 연결이 안되어 있습니다.", Toast.LENGTH_LONG);
+			else {
+				// 검색 페이지로 넘기기 
+				Intent intent = new Intent(this, SearchMapActivity.class);
+				intent.putExtra("search_menu", searchName);
+				startActivity(intent);
+			}
 		}		
 	}
 //******************************* 끝 *************************************

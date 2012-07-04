@@ -6,7 +6,7 @@ public class RestaurantData {
 	public String sMapX;		// position x
 	public String sMapY;		// position y
 	public String sTel;			// telephone number
-	
+//	
 	public RestaurantData() {
 		sTel = "미등록";
 	}

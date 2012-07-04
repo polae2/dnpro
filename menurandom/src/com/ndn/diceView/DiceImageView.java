@@ -13,7 +13,8 @@ import android.view.WindowManager;
 import com.ndn.diceView.Dice;
 
 public class DiceImageView extends SurfaceView implements SurfaceHolder.Callback {
-	private Thread mThread;	
+	private Thread mThread;
+	private boolean mIsThread = false;
 	private SurfaceHolder mSurfaceHolder;
 	private int mWidth;
 	private int mHeight;
@@ -51,8 +52,10 @@ public class DiceImageView extends SurfaceView implements SurfaceHolder.Callback
 	}
 	
 	public void startThread() {
-		if (!mThread.isAlive())		
+		if (!mThread.isAlive()) {
+			mIsThread = true;
 			mThread.start();
+		}	
 	}
 	
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -84,7 +87,7 @@ public class DiceImageView extends SurfaceView implements SurfaceHolder.Callback
 		if (mThread != null && mThread.isAlive())
 			mThread.interrupt();
 	}
-public	class DiceThread extends Thread {
+public class DiceThread extends Thread {
 		public void run() {
 			int i = 0;
 			while (!isInterrupted()) {
@@ -112,8 +115,10 @@ public	class DiceThread extends Thread {
 					i = 0;
 				
 				// stop the dice
-				if ( Math.abs( (int)dice.dx ) < 2 || Math.abs( (int) dice.dy ) < 2 )
+				if ( Math.abs( (int)dice.dx ) < 2 || Math.abs( (int) dice.dy ) < 2 ) {
+					mIsThread = false;
 					break;
+				}
 			}
 		}
 		
