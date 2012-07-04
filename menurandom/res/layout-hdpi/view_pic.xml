@@ -60,6 +60,20 @@
 	        android:background="#00000000"
 	        android:enabled="false" 
 	        />
+		
+		<EditText
+		    android:id="@+id/img_Txt2"
+            android:layout_width = "280dp"
+            android:layout_height = "wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="70dp"
+	        android:layout_marginRight="20dp"
+            android:textSize = "18sp"
+		    android:background="#00000000"
+		    android:enabled="false"
+		    android:text="@string/reperence"
+			/>
 
 	</RelativeLayout>
 

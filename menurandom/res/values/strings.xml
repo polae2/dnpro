@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">오늘은 뭘먹지?</string>
     <string name="intro1">프로젝트명 : 메뉴랜덤</string>
-    <string name="intro2">개발팀 : NDN</string>
-    <string name="intro3">개발자 : 김남열, 김두현, 김남훈</string>
+    <string name="intro2">개발팀 : DNPro</string>
+    <string name="intro3">개발자 : 김두현, 김남훈</string>
 	<string name="intro4"></string>
+	<string name="reperence">[출처]김진옥의 요리가 좋다</string>
 </resources>
