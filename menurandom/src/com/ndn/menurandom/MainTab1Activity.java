@@ -14,6 +14,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발일시 : 12. 06. 14
 // 개발내용 : 변수선언부
 //************************************************************************
-    private DiceImageView2 mDiceImageView;
+    private DiceImageView mDiceImageView;
     
 //***************************************************
 // 내용 : 버튼 선택시 처리 변수
@@ -180,7 +181,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.tab1);	//탭선택부
 		
         
-        mDiceImageView = new DiceImageView2(this);
+        mDiceImageView = new DiceImageView(this);
         mDiceImageView.setVisibility(View.GONE);
         //mDiceImageView.setBackgroundDrawable(null);
         
@@ -855,6 +856,84 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 					mDiceImageView.bringToFront();
 					mDiceImageView.setVisibility(View.VISIBLE);
 					
+					Handler handle = new Handler(getMainLooper());
+					handle.postDelayed(new Runnable() {
+						
+						public void run() {
+							
+							mDiceImageView.setVisibility(View.GONE);
+							//if(!isShaked)
+							//{
+								
+								/*Random random = new Random(System.nanoTime());
+								int r = random.nextInt();
+								String temp_String2 = String.valueOf(r);
+								String dtemp_String = temp_String2.substring(temp_String2
+										.length() - 1);
+								int abc = Integer.parseInt(dtemp_String);*/
+								
+				//				1 shake pass 
+				//				2 shake 4th -b 2p
+				//				3 shake 4th -b 3p
+				//				4 shake pass
+								if (currentState == STATE_FIRST || currentState == STATE_FOURTH) {
+									
+								}
+								if (currentState == STATE_SECOND) {
+									
+									select_food("1", "", STATE_FOURTH, F_View0);
+								} 
+								else if (currentState == STATE_THIRD) 
+								{
+									if(currentThird_View==T_View1)
+									{
+										
+										select_food("1", "K", STATE_FOURTH, F_View1);
+										
+									}
+									else if(currentThird_View==T_View2)
+									{
+										
+										select_food("1", "C", STATE_FOURTH, F_View2);
+										
+									}
+									else if(currentThird_View==T_View3)
+									{
+										
+										select_food("1", "J", STATE_FOURTH, F_View3);
+										
+									}
+									else if(currentThird_View==T_View4)
+									{
+										
+										select_food("1", "A", STATE_FOURTH, F_View4);
+										
+										
+									}
+									else if(currentThird_View==T_View5)
+									{
+										
+										select_food("1", "S", STATE_FOURTH, F_View5);
+										
+									}
+				
+									//Toast toast = Toast.makeText(this, "세번째 페이지", 2);
+									//toast.show();
+				
+								} 
+								else if (currentState == STATE_DRINK_LIST) {
+									//Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
+									//toast.show();
+				
+									select_food("2", "", STATE_DRINK, "");
+				
+								}
+								
+							//}
+							
+						}
+					}, 3000);
+					
 //					try {
 //						Thread.sleep(2000);
 //						
@@ -865,74 +944,6 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 					//mDiceImageView.setVisibility(View.GONE);
 				}
 				
-				//if(!isShaked)
-				//{
-					
-					/*Random random = new Random(System.nanoTime());
-					int r = random.nextInt();
-					String temp_String2 = String.valueOf(r);
-					String dtemp_String = temp_String2.substring(temp_String2
-							.length() - 1);
-					int abc = Integer.parseInt(dtemp_String);*/
-					
-	//				1 shake pass 
-	//				2 shake 4th -b 2p
-	//				3 shake 4th -b 3p
-	//				4 shake pass
-					if (currentState == STATE_FIRST || currentState == STATE_FOURTH) {
-						
-					}
-					if (currentState == STATE_SECOND) {
-						
-						select_food("1", "", STATE_FOURTH, F_View0);
-					} 
-					else if (currentState == STATE_THIRD) 
-					{
-						if(currentThird_View==T_View1)
-						{
-							
-							select_food("1", "K", STATE_FOURTH, F_View1);
-							
-						}
-						else if(currentThird_View==T_View2)
-						{
-							
-							select_food("1", "C", STATE_FOURTH, F_View2);
-							
-						}
-						else if(currentThird_View==T_View3)
-						{
-							
-							select_food("1", "J", STATE_FOURTH, F_View3);
-							
-						}
-						else if(currentThird_View==T_View4)
-						{
-							
-							select_food("1", "A", STATE_FOURTH, F_View4);
-							
-							
-						}
-						else if(currentThird_View==T_View5)
-						{
-							
-							select_food("1", "S", STATE_FOURTH, F_View5);
-							
-						}
-	
-						//Toast toast = Toast.makeText(this, "세번째 페이지", 2);
-						//toast.show();
-	
-					} 
-					else if (currentState == STATE_DRINK_LIST) {
-						//Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
-						//toast.show();
-	
-						select_food("2", "", STATE_DRINK, "");
-	
-					}
-					
-				//}
 				
 			}
 			lastX = event.values[DATA_X];
@@ -955,24 +966,24 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발내용 : 선택된 리스트 음식추천화면 넘김
 //************************************************************************
 	private void select_food(String code, String detailCode, String state, String f_view){
-//		DBHandler dbhandler = DBHandler.open(this);
-//		HashMap itemMap = new HashMap();
-//		itemMap.put("code", code);// 1 : 식사
-//		if(detailCode!=""){
-//			itemMap.put("detailCode", detailCode);// C : 중식
-//		}
-//		Cursor cursor = dbhandler.randomSelect(itemMap);
-//		startManagingCursor(cursor);
-//		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
-//		String result = cursor.getString(cursor.getColumnIndex("menuName"));
-//		String result2 = cursor.getString(cursor.getColumnIndex("pictureName"));
-//		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
-//		dbhandler.close();
-//		moveShowPage(result,result2,searchName);
-//
-//		currentState = state;
-//		if(f_view!="")
-//			currentFourth_View = f_view;
+		DBHandler dbhandler = DBHandler.open(this);
+		HashMap itemMap = new HashMap();
+		itemMap.put("code", code);// 1 : 식사
+		if(detailCode!=""){
+			itemMap.put("detailCode", detailCode);// C : 중식
+		}
+		Cursor cursor = dbhandler.randomSelect(itemMap);
+		startManagingCursor(cursor);
+		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
+		String result = cursor.getString(cursor.getColumnIndex("menuName"));
+		String result2 = cursor.getString(cursor.getColumnIndex("pictureName"));
+		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
+		dbhandler.close();
+		moveShowPage(result,result2,searchName);
+
+		currentState = state;
+		if(f_view!="")
+			currentFourth_View = f_view;
 	}
 //******************************* 끝 *************************************	
 	

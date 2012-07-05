@@ -27,7 +27,7 @@ public class DiceImageView extends View {
 	private int bitmapIndex = 0;
 	
 	private Object mLock = new Object();
-	
+	private boolean diceStop = false;
 	
 	public DiceImageView(Context context) {
 		super(context);
@@ -65,19 +65,25 @@ public class DiceImageView extends View {
 		{
 			c.drawBitmap(bitmap[bitmapIndex], (int)dice.x, (int)dice.y, null);
 			
-			updatePhisics();
-			// change bitmap image
-			if (++bitmapIndex > 11)
-				bitmapIndex = 0;
-			
+			if(!diceStop)
+			{
+				updatePhisics();
+				// change bitmap image
+				if (++bitmapIndex > 11)
+					bitmapIndex = 0;
+			}
 			
 			// stop the dice
 			if ( Math.abs( (int)dice.dx ) < 2 || Math.abs( (int) dice.dy ) < 2 )
 			{
-				mThread.interrupt();
+				diceStop = true;
+				if(mThread != null)
+				{
+					mThread.interrupt();
+					mThread = null;
+				}
 			}
 		}
-
 	}
 	
 	
@@ -96,6 +102,8 @@ public class DiceImageView extends View {
 		}
 		else if(visibility == View.VISIBLE)
 		{
+			diceStop = false;
+			
 			if(dice == null)
 			{
 				dice = new Dice();
