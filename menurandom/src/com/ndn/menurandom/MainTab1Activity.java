@@ -13,11 +13,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,9 +26,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ndn.diceView.DiceImageView;
+import com.ndn.diceView.DiceImageView2;
 import com.ndn.menurandom.data.MenuInfo;
 import com.ndn.menurandom.db.DBHandler;
 import com.ndn.menurandom.search.SearchMapActivity;
+import com.nhn.android.maps.opt.m;
 
 public class MainTab1Activity extends Activity implements OnClickListener, SensorEventListener {
     /** Called when the activity is first created. */
@@ -41,7 +41,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발일시 : 12. 06. 14
 // 개발내용 : 변수선언부
 //************************************************************************
-    //private DiceImageView mDiceImageView;
+    private DiceImageView2 mDiceImageView;
     
 //***************************************************
 // 내용 : 버튼 선택시 처리 변수
@@ -110,7 +110,9 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
    
     private float x, y, z;
     private static final int SHAKE_THRESHOLD = 900;     // 흔들기 모션 강도(얼만큼 세게 흔들었느냐)
-   
+    private int shakeCount = 0;
+    private static final int MAX_SHAKE_COUNT = 0; 
+    
     private static final int DATA_X = SensorManager.DATA_X;
     private static final int DATA_Y = SensorManager.DATA_Y;
     private static final int DATA_Z = SensorManager.DATA_Z;
@@ -170,12 +172,21 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
         sensor_Initialize();
 //*********************** 끝 *************************
         //setSelectTab(0);
-        //mDiceImageView = new DiceImageView(this);
+        
+        
 //***************************************************
 // 내용 : 각 뷰 전체를 호출함(처음 보여줄 뷰를 제외한 나머지 뷰 숨김)
 //***************************************************
         FrameLayout frameLayout = (FrameLayout) findViewById(R.id.tab1);	//탭선택부
 		
+        
+        mDiceImageView = new DiceImageView2(this);
+        mDiceImageView.setVisibility(View.GONE);
+        //mDiceImageView.setBackgroundDrawable(null);
+        
+        frameLayout.addView(mDiceImageView);
+        
+        
         view1 = createView1();
         
         frameLayout.addView(view1);
@@ -642,18 +653,11 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			
 //			currentState = ???
 			
-			// check network
-			ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-			NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-			
-			if (networkInfo == null)
-				Toast.makeText(this, "네트워크 연결이 안되어 있습니다.", Toast.LENGTH_LONG).show();
-			else {
-				// 검색 페이지로 넘기기 
-				Intent intent = new Intent(this, SearchMapActivity.class);
-				intent.putExtra("search_menu", searchName);
-				startActivity(intent);
-			}
+			// 검색 페이지로 넘기기 
+			Intent intent = new Intent(this, SearchMapActivity.class);
+			intent.putExtra("search_menu", searchName);
+			startActivity(intent);
+					
 		}		
 	}
 //******************************* 끝 *************************************
@@ -801,11 +805,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
           SensorManager.SENSOR_ACCELEROMETER|
              SensorManager.SENSOR_DELAY_NORMAL
         );
-	}
+ 	}
 	
 	private void stopShaking()
 	{
 		sensorManager.unregisterListener(this);
+      	
 	}
 	
     
@@ -841,10 +846,25 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 			long gabOfTime = 150;
 			
 			speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
-
-			if (speed > SHAKE_THRESHOLD) {
-					//mDiceImageView.startThread();
-
+			
+			if (speed > SHAKE_THRESHOLD  
+					&& ++shakeCount > MAX_SHAKE_COUNT) {
+				
+				shakeCount = 0;
+				if (currentState != STATE_FIRST || currentState != STATE_FOURTH) {
+					mDiceImageView.bringToFront();
+					mDiceImageView.setVisibility(View.VISIBLE);
+					
+//					try {
+//						Thread.sleep(2000);
+//						
+//					} catch (InterruptedException ignore) {
+//						// ignore
+//					}
+					
+					//mDiceImageView.setVisibility(View.GONE);
+				}
+				
 				//if(!isShaked)
 				//{
 					
@@ -935,24 +955,24 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 // 개발내용 : 선택된 리스트 음식추천화면 넘김
 //************************************************************************
 	private void select_food(String code, String detailCode, String state, String f_view){
-		DBHandler dbhandler = DBHandler.open(this);
-		HashMap itemMap = new HashMap();
-		itemMap.put("code", code);// 1 : 식사
-		if(detailCode!=""){
-			itemMap.put("detailCode", detailCode);// C : 중식
-		}
-		Cursor cursor = dbhandler.randomSelect(itemMap);
-		startManagingCursor(cursor);
-		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
-		String result = cursor.getString(cursor.getColumnIndex("menuName"));
-		String result2 = cursor.getString(cursor.getColumnIndex("pictureName"));
-		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
-		dbhandler.close();
-		moveShowPage(result,result2,searchName);
-
-		currentState = state;
-		if(f_view!="")
-			currentFourth_View = f_view;
+//		DBHandler dbhandler = DBHandler.open(this);
+//		HashMap itemMap = new HashMap();
+//		itemMap.put("code", code);// 1 : 식사
+//		if(detailCode!=""){
+//			itemMap.put("detailCode", detailCode);// C : 중식
+//		}
+//		Cursor cursor = dbhandler.randomSelect(itemMap);
+//		startManagingCursor(cursor);
+//		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
+//		String result = cursor.getString(cursor.getColumnIndex("menuName"));
+//		String result2 = cursor.getString(cursor.getColumnIndex("pictureName"));
+//		String searchName = cursor.getString(cursor.getColumnIndex("searchName"));
+//		dbhandler.close();
+//		moveShowPage(result,result2,searchName);
+//
+//		currentState = state;
+//		if(f_view!="")
+//			currentFourth_View = f_view;
 	}
 //******************************* 끝 *************************************	
 	
