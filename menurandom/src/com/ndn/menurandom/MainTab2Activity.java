@@ -46,6 +46,7 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 	private static final String KMA_URL = "http://www.kma.go.kr/wid/queryDFS.jsp?gridx=60&gridy=127";	// Jong-Ro 2 st.
 	
 	
+	
 	/////////////////////////////////////////////////////
 	// Location Variable
 //    private LocationManager locationManager;
@@ -269,6 +270,12 @@ public class MainTab2Activity extends Activity implements OnClickListener {
 			}
 		} catch (Exception e) {
 			Log.e("NHK", "weather ERROR");
+			
+		}
+		
+		if(weatherData == null)
+		{
+			weatherData = "UNKNOWN";
 		}
 		
 		if ( weatherData.equals("Clear") || weatherData.equals("Little Cloudy") )
