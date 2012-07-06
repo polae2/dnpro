@@ -116,7 +116,6 @@ public class DiceImageView extends View {
 				mThread = new DiceThread();
 				mThread.start();
 			}
-		
 		}
 	}
 	
