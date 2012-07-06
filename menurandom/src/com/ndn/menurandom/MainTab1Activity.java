@@ -976,7 +976,12 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		if(detailCode!=""){
 			itemMap.put("detailCode", detailCode);// C : 중식
 		}
-		Cursor cursor = dbhandler.randomSelect(itemMap);
+		
+		Cursor cursor = null;
+		do {
+			cursor = dbhandler.randomSelect(itemMap);
+		}while(cursor == null || cursor.getCount() == 0);
+			
 		startManagingCursor(cursor);
 		cursor.moveToFirst(); // 커서 처음으로 이동 시킴
 		String result = cursor.getString(cursor.getColumnIndex("menuName"));

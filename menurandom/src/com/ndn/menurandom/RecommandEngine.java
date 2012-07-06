@@ -58,6 +58,7 @@ public class RecommandEngine {
 			break;
 		}
 		
+		
 		Random random = new Random(System.nanoTime());
 		int r = random.nextInt();
 		Cursor cursor1 = getWheatherCount();
@@ -66,6 +67,10 @@ public class RecommandEngine {
 		
 		int temp_random_cnt = Integer.parseInt(result);
 		int temp_random = Math.abs(r) % temp_random_cnt;
+
+//		Random random = new Random();
+//		random.nextInt(count);
+
 		
 		Cursor cursor2 = getWeatherRandomList();
 		int cnt = 0;
