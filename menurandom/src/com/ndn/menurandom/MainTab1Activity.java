@@ -1063,10 +1063,26 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		button.setTag(SEARCH_BUTTON);
 		button.setOnClickListener(this);
 		//currentState = STATE_FOURTH;
+		stateView(img);
 		vibrator.vibrate(millisecOn);
 		//vibrator.vibrate(pattern, time);
 		//vibrator.cancel();
 	}
 	
+	private void stateView(String imageName){
+		currentState=STATE_FOURTH;
+		String imgName = imageName.substring(0, 1);
+		if(imgName.equals("k")){
+			currentFourth_View = F_View1;
+		}else if(imgName.equals("c")){
+			currentFourth_View = F_View2;
+		}else if(imgName.equals("j")){
+			currentFourth_View = F_View3;
+		}else if(imgName.equals("a")){
+			currentFourth_View = F_View4;
+		}else if(imgName.equals("s")){
+			currentFourth_View = F_View5;
+		}
+	}
 	
 }
