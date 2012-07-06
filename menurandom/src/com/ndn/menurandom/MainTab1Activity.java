@@ -1042,8 +1042,8 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 	 * 메뉴 소개 페이지로 이동!
 	 */
 	protected void moveShowPage(String txt, String img, String search_Name) {
-		Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-		long millisecOn = 700;
+		//Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+		//long millisecOn = 700;
 		//long millisecOff = 1000;
 		//int time = 3;
 		
@@ -1073,7 +1073,7 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 		button.setOnClickListener(this);
 		//currentState = STATE_FOURTH;
 		stateView(img);
-		vibrator.vibrate(millisecOn);
+		//vibrator.vibrate(millisecOn);
 		//vibrator.vibrate(pattern, time);
 		//vibrator.cancel();
 	}

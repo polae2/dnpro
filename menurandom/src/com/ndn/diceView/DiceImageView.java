@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceHolder;
@@ -28,10 +29,13 @@ public class DiceImageView extends View {
 	
 	private Object mLock = new Object();
 	private boolean diceStop = false;
+	private Vibrator mVibrator = null;
 	
 	public DiceImageView(Context context) {
 		super(context);
 		
+		
+		mVibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 		// get Device width, height
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
@@ -120,6 +124,8 @@ public class DiceImageView extends View {
 	}
 	
 	public void updatePhisics() {
+		
+		boolean useVibrator  = false;
 		float temp_x, temp_y;
 		
 		temp_x = dice.x + dice.dx;
@@ -129,20 +135,29 @@ public class DiceImageView extends View {
 		if (temp_x < 0) {
 			dice.dx = dice.dx * -1;
 			temp_x += getDistance(temp_x, 0);
+			useVibrator = true;
 		} else if (temp_x + dice.width > mDeviceWidth ) {
 			dice.dx = dice.dx * -1;
 			temp_x = mDeviceWidth - getDistance(temp_x, mDeviceWidth);
+			useVibrator = true;
 		}
 		dice.x = temp_x;
 
 		if (temp_y < 0 ) {
 			dice.dy = dice.dy * -1;
 			temp_y += getDistance(temp_y, 0);
+			useVibrator = true;
 		} else if ( temp_y + dice.height > mDeviceHeight-65 ) {		// except for height of status bar(40) and title bar(25) 
 			dice.dy = dice.dy * -1;
 			temp_y = mDeviceHeight - getDistance(temp_y, mDeviceHeight);
+			useVibrator = true;
 		}
 		dice.y = temp_y;
+		
+		if(useVibrator)
+		{
+			mVibrator.vibrate(500);
+		}
 		
 		// decrease velocity by friction force
 		dice.dx = dice.dx * 0.96f;
