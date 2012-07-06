@@ -36,7 +36,7 @@ public class DiceImageView extends View {
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		mDeviceWidth = display.getWidth();
-		mDeviceHeight = display.getHeight();
+		mDeviceHeight = display.getHeight() - 100;
 		
 		// load dice images
 		bitmap[0] =BitmapFactory.decodeResource(getResources(), R.drawable.red_dice_1_1);

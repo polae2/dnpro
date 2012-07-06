@@ -852,98 +852,102 @@ public class MainTab1Activity extends Activity implements OnClickListener, Senso
 					&& ++shakeCount > MAX_SHAKE_COUNT) {
 				
 				shakeCount = 0;
-				if (currentState != STATE_FIRST || currentState != STATE_FOURTH) {
-					mDiceImageView.bringToFront();
-					mDiceImageView.setVisibility(View.VISIBLE);
+				if (currentState != STATE_FIRST){
 					
-					Handler handle = new Handler(getMainLooper());
-					handle.postDelayed(new Runnable() {
+				
 						
-						public void run() {
+					if (currentState != STATE_FOURTH) {
+						mDiceImageView.bringToFront();
+						mDiceImageView.setVisibility(View.VISIBLE);
+						
+						Handler handle = new Handler(getMainLooper());
+						handle.postDelayed(new Runnable() {
 							
-							mDiceImageView.setVisibility(View.GONE);
-							//if(!isShaked)
-							//{
+							public void run() {
 								
-								/*Random random = new Random(System.nanoTime());
-								int r = random.nextInt();
-								String temp_String2 = String.valueOf(r);
-								String dtemp_String = temp_String2.substring(temp_String2
-										.length() - 1);
-								int abc = Integer.parseInt(dtemp_String);*/
-								
-				//				1 shake pass 
-				//				2 shake 4th -b 2p
-				//				3 shake 4th -b 3p
-				//				4 shake pass
-								if (currentState == STATE_FIRST || currentState == STATE_FOURTH) {
+								mDiceImageView.setVisibility(View.GONE);
+								//if(!isShaked)
+								//{
 									
-								}
-								if (currentState == STATE_SECOND) {
+									/*Random random = new Random(System.nanoTime());
+									int r = random.nextInt();
+									String temp_String2 = String.valueOf(r);
+									String dtemp_String = temp_String2.substring(temp_String2
+											.length() - 1);
+									int abc = Integer.parseInt(dtemp_String);*/
 									
-									select_food("1", "", STATE_FOURTH, F_View0);
-								} 
-								else if (currentState == STATE_THIRD) 
-								{
-									if(currentThird_View==T_View1)
-									{
-										
-										select_food("1", "K", STATE_FOURTH, F_View1);
+					//				1 shake pass 
+					//				2 shake 4th -b 2p
+					//				3 shake 4th -b 3p
+					//				4 shake pass
+									if (currentState == STATE_FIRST || currentState == STATE_FOURTH) {
 										
 									}
-									else if(currentThird_View==T_View2)
+									if (currentState == STATE_SECOND) {
+										
+										select_food("1", "", STATE_FOURTH, F_View0);
+									} 
+									else if (currentState == STATE_THIRD) 
 									{
-										
-										select_food("1", "C", STATE_FOURTH, F_View2);
-										
+										if(currentThird_View==T_View1)
+										{
+											
+											select_food("1", "K", STATE_FOURTH, F_View1);
+											
+										}
+										else if(currentThird_View==T_View2)
+										{
+											
+											select_food("1", "C", STATE_FOURTH, F_View2);
+											
+										}
+										else if(currentThird_View==T_View3)
+										{
+											
+											select_food("1", "J", STATE_FOURTH, F_View3);
+											
+										}
+										else if(currentThird_View==T_View4)
+										{
+											
+											select_food("1", "A", STATE_FOURTH, F_View4);
+											
+											
+										}
+										else if(currentThird_View==T_View5)
+										{
+											
+											select_food("1", "S", STATE_FOURTH, F_View5);
+											
+										}
+					
+										//Toast toast = Toast.makeText(this, "세번째 페이지", 2);
+										//toast.show();
+					
+									} 
+									else if (currentState == STATE_DRINK_LIST) {
+										//Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
+										//toast.show();
+					
+										select_food("2", "", STATE_DRINK, "");
+					
 									}
-									else if(currentThird_View==T_View3)
-									{
-										
-										select_food("1", "J", STATE_FOURTH, F_View3);
-										
-									}
-									else if(currentThird_View==T_View4)
-									{
-										
-										select_food("1", "A", STATE_FOURTH, F_View4);
-										
-										
-									}
-									else if(currentThird_View==T_View5)
-									{
-										
-										select_food("1", "S", STATE_FOURTH, F_View5);
-										
-									}
-				
-									//Toast toast = Toast.makeText(this, "세번째 페이지", 2);
-									//toast.show();
-				
-								} 
-								else if (currentState == STATE_DRINK_LIST) {
-									//Toast toast = Toast.makeText(this, "술먹기 페이지", 2);
-									//toast.show();
-				
-									select_food("2", "", STATE_DRINK, "");
-				
-								}
+									
+								//}
 								
-							//}
-							
-						}
-					}, 3000);
-					
-//					try {
-//						Thread.sleep(2000);
-//						
-//					} catch (InterruptedException ignore) {
-//						// ignore
-//					}
-					
-					//mDiceImageView.setVisibility(View.GONE);
+							}
+						}, 3000);
+						
+	//					try {
+	//						Thread.sleep(2000);
+	//						
+	//					} catch (InterruptedException ignore) {
+	//						// ignore
+	//					}
+						
+						//mDiceImageView.setVisibility(View.GONE);
+					}
 				}
-				
 				
 			}
 			lastX = event.values[DATA_X];
