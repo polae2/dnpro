@@ -68,7 +68,7 @@
 	        android:layout_alignParentBottom="true"
 	        android:layout_marginBottom="10dp"
 	        android:layout_marginRight="20dp"
-		    android:text="Other Menu"/>
+		    android:text="다른메뉴"/>
 		
 		<Button 
 		    android:id = "@+id/btn_search"
@@ -79,7 +79,7 @@
 	        android:layout_alignParentBottom="true"
 	        android:layout_marginBottom="10dp"
 	        android:layout_marginRight="140dp"
-		    android:text="Search"/>
+		    android:text="위치검색"/>
       </RelativeLayout>  
     
 </LinearLayout>
