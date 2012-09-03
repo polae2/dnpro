@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="500dp"
+    android:layout_height="fill_parent"
     android:background="@drawable/page1"
     android:orientation="vertical" >
 
@@ -13,23 +13,23 @@
         <ImageButton
             android:id="@+id/ImgBtn1_1"
             android:src="@drawable/sik"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="100dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:scaleType="fitXY"
             android:background="#00000000" />
 
         <ImageButton
             android:id="@+id/ImgBtn1_2"
             android:src="@drawable/sul"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="100dp"
             android:scaleType="fitXY"
             android:background="#00000000" />

@@ -39,11 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
 		// if db is not exist
 		if (!dbExist) {
 			
-			this.getReadableDatabase();
+			this.getWritableDatabase();
 			try {
 				copyDataBase();
 			} catch (IOException e) {
-				Log.e("NHK", "Error occured while copying database");
+				Log.e("", "Error occured while copying database");
 			}
 		}
 	}
@@ -53,9 +53,10 @@ public class DBHelper extends SQLiteOpenHelper {
 		SQLiteDatabase checkDB = null;
 
 		try {
-			checkDB = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.OPEN_READONLY);
+			checkDB = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+			
 		} catch (SQLiteException e) {
-			Log.e("NHK", "Database is not exist.");
+			Log.e("", "Database is not exist.");
 		}
 
 		if (checkDB != null)
@@ -90,9 +91,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		try {
 			// Open the database
 			String myPath = DB_PATH + DB_NAME;
-			myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+			myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 		} catch(Exception e) {
-			Log.e("NHK", "Error occured to open database");
+			Log.e("", "Error occured to open database");
 		}
 		return myDataBase;
 	}

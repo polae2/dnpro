@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -219,6 +220,33 @@ public class DBHandler {
         return cursor;
     }
    
+    public Cursor getCheckGPS() throws SQLException{
+    	Cursor cursor = null;
+    	
+    	StringBuffer sb = new StringBuffer();
+    	
+    	sb.append("select check_gps         \n");
+    	sb.append(" from check_system       \n");
+    	sb.append(" where check_user='user'     \n");
+    	
+    	cursor=db.rawQuery(sb.toString(), null);
+    	return cursor;
+    }
 
+    public Cursor setCheckGPS(String checkgps) throws SQLException{
+    	Cursor cursor = null;
+    	
+    	StringBuffer sb = new StringBuffer();
+    	
+    	sb.append("update check_system set check_gps='" + checkgps + "'          \n");
+    	sb.append(" where check_user='user'     \n");
+    	
+    	//cursor=db.rawQuery(sb.toString(), null);
+    	ContentValues cv = new ContentValues();
+    	cv.put("check_gps", "Y");
+    	
+    	System.out.println(db.update("check_system", cv, "check_user='user'", null));
+    	return cursor;
+    }
 
 }
